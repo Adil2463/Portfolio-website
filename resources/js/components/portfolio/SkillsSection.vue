@@ -1,97 +1,60 @@
 <script setup lang="ts">
 import { motion } from 'motion-v';
-import SectionContainer from '@/components/layout/SectionContainer.vue';
-import { skillCategories } from '@/data/portfolio';
 import { useReducedMotion } from '@/composables/useReducedMotion';
 
 const { prefersReducedMotion } = useReducedMotion();
+const cv = { hidden: {}, visible: { transition: { staggerChildren: 0.07 } } };
+const iv = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } } };
+const chipV = { hidden: { opacity: 0, scale: 0.9 }, visible: { opacity: 1, scale: 1, transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] } } };
 
-const containerVariants = {
-    hidden: {},
-    visible: { transition: { staggerChildren: 0.08 } },
-};
-
-const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: 'easeOut' } },
-};
-
-// Only show meaningful categories (non-empty)
-const activeCategories = skillCategories.filter(c => c.skills.length > 0);
+const skillGroups = [
+    { label: 'Backend',         skills: ['PHP', 'Laravel', 'RESTful APIs'] },
+    { label: 'Frontend',        skills: ['Vue.js', 'Nuxt.js', 'TypeScript', 'JavaScript', 'HTML', 'CSS', 'Tailwind CSS'] },
+    { label: 'Database',        skills: ['MySQL'] },
+    { label: 'Tools & Workflow',skills: ['Git', 'GitHub', 'PHPUnit', 'Vite', 'Composer', 'NPM'] },
+    { label: 'Practices',       skills: ['Responsive Design', 'REST Architecture', 'MVC Pattern', 'Clean Code', 'Agile'] },
+];
 </script>
 
 <template>
-    <SectionContainer id="skills" class="py-20 md:py-28">
-        <motion.div
-            :variants="prefersReducedMotion ? undefined : containerVariants"
-            initial="hidden"
-            while-in-view="visible"
-            :viewport="{ once: true, margin: '-100px' }"
-        >
-            <motion.div :variants="prefersReducedMotion ? undefined : itemVariants">
-                <span class="section-label">Skills</span>
-                <h2 class="section-heading mt-3">Technical Expertise</h2>
-                <p class="mt-3 max-w-xl text-muted-foreground">
-                    Technologies I use to build production-grade full-stack applications.
-                </p>
-            </motion.div>
+    <section id="skills" class="folio-section" :style="{ borderTop: '1px solid var(--folio-border)' }">
+        <div class="mx-auto max-w-6xl px-6 md:px-10 lg:px-12">
+            <motion.div :variants="prefersReducedMotion?undefined:cv" initial="hidden" while-in-view="visible" :viewport="{once:true,margin:'-80px'}">
 
-            <motion.div
-                :variants="prefersReducedMotion ? undefined : containerVariants"
-                class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
-            >
-                <motion.div
-                    v-for="category in activeCategories"
-                    :key="category.category"
-                    :variants="prefersReducedMotion ? undefined : itemVariants"
-                    class="skill-card group relative overflow-hidden rounded-2xl border border-border/50 bg-muted/20 p-6 transition-all duration-300 hover:border-accent/40 hover:bg-muted/40"
-                >
-                    <!-- Hover glow -->
-                    <div class="skill-card-glow pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                <div class="grid gap-8 lg:grid-cols-2 lg:gap-16">
+                    <motion.div :variants="prefersReducedMotion?undefined:iv">
+                        <p class="folio-label">Skills</p>
+                        <h2 class="mt-3 text-[clamp(1.9rem,4vw,2.8rem)] font-extrabold leading-[1.1] tracking-[-0.03em]" :style="{ color: 'var(--folio-text-primary)' }">
+                            What I work<br /><em class="not-italic folio-green">with</em>
+                        </h2>
+                    </motion.div>
+                    <motion.p :variants="prefersReducedMotion?undefined:iv" class="self-end text-[0.9375rem] leading-[1.8] lg:pb-1" :style="{ color: 'var(--folio-text-secondary)' }">
+                        Technologies I use daily to build full-stack applications — from database design to polished interfaces.
+                    </motion.p>
+                </div>
 
-                    <div class="relative z-10">
-                        <!-- Header -->
-                        <div class="mb-5 flex items-center gap-3">
-                            <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-accent/15 transition-colors group-hover:bg-accent/25">
-                                <component :is="category.icon" class="h-4 w-4 text-accent" />
-                            </div>
-                            <h3 class="font-semibold text-foreground">{{ category.category }}</h3>
-                        </div>
+                <motion.div :variants="prefersReducedMotion?undefined:iv" class="mt-12 border-t" :style="{ borderColor: 'var(--folio-border)' }" />
 
-                        <!-- Skills as chips -->
-                        <div class="flex flex-wrap gap-2">
-                            <span
-                                v-for="skill in category.skills"
-                                :key="skill.name"
-                                class="inline-flex items-center rounded-full px-3 py-1 text-xs font-medium transition-colors"
-                                :class="skill.isCore
-                                    ? 'border border-accent/40 bg-accent/10 text-accent'
-                                    : 'border border-border/60 bg-background/60 text-muted-foreground hover:border-accent/30 hover:text-foreground'"
-                            >
-                                <span v-if="skill.isCore" class="mr-1.5 h-1 w-1 rounded-full bg-accent" />
-                                {{ skill.name }}
-                            </span>
-                        </div>
-                    </div>
+                <div class="mt-12 space-y-10">
+                    <motion.div v-for="group in skillGroups" :key="group.label" :variants="prefersReducedMotion?undefined:cv" class="grid gap-4 sm:grid-cols-[140px_1fr] sm:gap-8">
+                        <motion.p :variants="prefersReducedMotion?undefined:iv" class="pt-1 text-xs font-semibold uppercase tracking-[0.12em]" :style="{ color: 'var(--folio-text-faint)' }">
+                            {{ group.label }}
+                        </motion.p>
+                        <motion.div :variants="prefersReducedMotion?undefined:cv" class="flex flex-wrap gap-2">
+                            <motion.span v-for="skill in group.skills" :key="skill" :variants="prefersReducedMotion?undefined:chipV" class="folio-chip">{{ skill }}</motion.span>
+                        </motion.div>
+                    </motion.div>
+                </div>
+
+                <motion.div :variants="prefersReducedMotion?undefined:iv" class="mt-16 flex flex-col gap-3 border-t pt-8 sm:flex-row sm:items-center sm:justify-between" :style="{ borderColor: 'var(--folio-border)' }">
+                    <p class="text-sm" :style="{ color: 'var(--folio-text-muted)' }">
+                        Always learning — currently exploring
+                        <span :style="{ color: 'var(--folio-text-secondary)', fontWeight: 500 }">Inertia.js</span> &amp;
+                        <span :style="{ color: 'var(--folio-text-secondary)', fontWeight: 500 }">Docker</span>
+                    </p>
+                    <span class="font-mono text-xs" :style="{ color: 'var(--folio-text-faint)' }">v2026</span>
                 </motion.div>
             </motion.div>
-
-            <!-- All tech flat list -->
-            <motion.div
-                :variants="prefersReducedMotion ? undefined : itemVariants"
-                class="mt-10 rounded-2xl border border-border/40 bg-muted/10 p-6"
-            >
-                <p class="mb-4 text-xs font-semibold uppercase tracking-widest text-muted-foreground">Full Stack</p>
-                <div class="flex flex-wrap gap-2">
-                    <span
-                        v-for="tech in ['PHP', 'Laravel', 'Vue.js', 'Nuxt.js', 'TypeScript', 'JavaScript', 'MySQL', 'Tailwind CSS', 'HTML', 'CSS', 'Git', 'REST APIs']"
-                        :key="tech"
-                        class="rounded-full border border-border/50 bg-background/70 px-3 py-1 font-mono text-xs text-muted-foreground transition-colors hover:border-accent/40 hover:text-accent"
-                    >
-                        {{ tech }}
-                    </span>
-                </div>
-            </motion.div>
-        </motion.div>
-    </SectionContainer>
+        </div>
+    </section>
 </template>

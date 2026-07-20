@@ -8,7 +8,7 @@
 
 @theme inline {
     --font-sans:
-        Instrument Sans, ui-sans-serif, system-ui, sans-serif,
+        'Inter', ui-sans-serif, system-ui, sans-serif,
         'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
         'Noto Color Emoji';
 
@@ -35,11 +35,6 @@
     --color-border: var(--border);
     --color-input: var(--input);
     --color-ring: var(--ring);
-    --color-chart-1: var(--chart-1);
-    --color-chart-2: var(--chart-2);
-    --color-chart-3: var(--chart-3);
-    --color-chart-4: var(--chart-4);
-    --color-chart-5: var(--chart-5);
     --color-sidebar: var(--sidebar-background);
     --color-sidebar-foreground: var(--sidebar-foreground);
     --color-sidebar-primary: var(--sidebar-primary);
@@ -60,91 +55,129 @@
     }
 }
 
-@layer utilities {
-    body, html {
-        --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif;
-    }
-}
-
-/* ─── Design tokens ─────────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════════
+   DESIGN TOKENS — Dark default, light via html.light
+═══════════════════════════════════════════════════════════════ */
 :root {
-    --background: hsl(0 0% 100%);
-    --foreground: hsl(222 47% 8%);
-    --card: hsl(0 0% 100%);
-    --card-foreground: hsl(222 47% 8%);
-    --popover: hsl(0 0% 100%);
-    --popover-foreground: hsl(222 47% 8%);
-    --primary: hsl(258 84% 56%);
-    --primary-foreground: hsl(0 0% 100%);
-    --secondary: hsl(220 14% 95%);
-    --secondary-foreground: hsl(222 47% 15%);
-    --muted: hsl(220 14% 95%);
-    --muted-foreground: hsl(220 8% 48%);
-    --accent: hsl(258 84% 56%);
-    --accent-foreground: hsl(0 0% 100%);
-    --destructive: hsl(0 84% 60%);
+    --background:         hsl(0 0% 5%);
+    --foreground:         hsl(0 0% 95%);
+    --card:               hsl(0 0% 8%);
+    --card-foreground:    hsl(0 0% 95%);
+    --popover:            hsl(0 0% 7%);
+    --popover-foreground: hsl(0 0% 95%);
+    --primary:            hsl(0 0% 95%);
+    --primary-foreground: hsl(0 0% 5%);
+    --secondary:          hsl(0 0% 12%);
+    --secondary-foreground: hsl(0 0% 80%);
+    --muted:              hsl(0 0% 12%);
+    --muted-foreground:   hsl(0 0% 50%);
+    --accent:             hsl(142 71% 45%);
+    --accent-foreground:  hsl(0 0% 5%);
+    --destructive:        hsl(0 84% 60%);
     --destructive-foreground: hsl(0 0% 98%);
-    --border: hsl(220 13% 91%);
-    --input: hsl(220 13% 89%);
-    --ring: hsl(258 84% 56%);
-    --radius: 0.625rem;
+    --border:             hsl(0 0% 15%);
+    --input:              hsl(0 0% 15%);
+    --ring:               hsl(142 71% 45%);
+    --radius:             0.625rem;
 
-    --sidebar-background: hsl(0 0% 98%);
-    --sidebar-foreground: hsl(240 5.3% 26.1%);
-    --sidebar-primary: hsl(258 84% 56%);
-    --sidebar-primary-foreground: hsl(0 0% 100%);
-    --sidebar-accent: hsl(0 0% 94%);
-    --sidebar-accent-foreground: hsl(0 0% 30%);
-    --sidebar-border: hsl(0 0% 91%);
-    --sidebar-ring: hsl(258 84% 56%);
-    --sidebar: hsl(0 0% 98%);
+    --sidebar-background:           hsl(0 0% 5%);
+    --sidebar-foreground:           hsl(0 0% 80%);
+    --sidebar-primary:              hsl(142 71% 45%);
+    --sidebar-primary-foreground:   hsl(0 0% 5%);
+    --sidebar-accent:               hsl(0 0% 12%);
+    --sidebar-accent-foreground:    hsl(0 0% 80%);
+    --sidebar-border:               hsl(0 0% 15%);
+    --sidebar-ring:                 hsl(142 71% 45%);
+    --sidebar:                      hsl(0 0% 5%);
 
-    /* Portfolio tokens */
-    --portfolio-accent: 258 84% 56%;
-    --portfolio-accent-2: 210 100% 56%;
-    --portfolio-grid-line: 220 13% 91%;
+    /* ── Portfolio semantic tokens ── */
+    --folio-green:        142 71% 45%;
+
+    --folio-bg:           hsl(0 0% 5%);
+    --folio-bg-card:      hsl(0 0% 8%);
+    --folio-bg-input:     hsl(0 0% 8%);
+    --folio-bg-tag:       hsl(0 0% 10%);
+
+    --folio-text-primary:   hsl(0 0% 92%);
+    --folio-text-secondary: hsl(0 0% 55%);
+    --folio-text-muted:     hsl(0 0% 35%);
+    --folio-text-faint:     hsl(0 0% 22%);
+
+    --folio-border:         hsl(0 0% 14%);
+    --folio-border-tag:     hsl(0 0% 20%);
+
+    --folio-chip-bg:        hsl(0 0% 10%);
+    --folio-chip-text:      hsl(0 0% 65%);
+    --folio-chip-border:    hsl(0 0% 18%);
+
+    /* navbar scroll bg */
+    --folio-nav-bg:         hsl(0 0% 5% / 0.92);
+    --folio-nav-border:     hsl(0 0% 13%);
 }
 
-.dark {
-    --background: hsl(222 47% 5%);
-    --foreground: hsl(210 40% 96%);
-    --card: hsl(222 47% 7%);
-    --card-foreground: hsl(210 40% 96%);
-    --popover: hsl(222 47% 6%);
-    --popover-foreground: hsl(210 40% 96%);
-    --primary: hsl(258 84% 65%);
-    --primary-foreground: hsl(0 0% 100%);
-    --secondary: hsl(217 32% 14%);
-    --secondary-foreground: hsl(210 40% 90%);
-    --muted: hsl(217 32% 12%);
-    --muted-foreground: hsl(215 20% 55%);
-    --accent: hsl(258 84% 65%);
-    --accent-foreground: hsl(0 0% 100%);
-    --destructive: hsl(0 84% 60%);
+/* ── Light mode ──────────────────────────────────────────────── */
+html.light {
+    --background:         hsl(0 0% 98%);
+    --foreground:         hsl(0 0% 8%);
+    --card:               hsl(0 0% 100%);
+    --card-foreground:    hsl(0 0% 8%);
+    --popover:            hsl(0 0% 100%);
+    --popover-foreground: hsl(0 0% 8%);
+    --primary:            hsl(0 0% 8%);
+    --primary-foreground: hsl(0 0% 98%);
+    --secondary:          hsl(0 0% 93%);
+    --secondary-foreground: hsl(0 0% 20%);
+    --muted:              hsl(0 0% 93%);
+    --muted-foreground:   hsl(0 0% 45%);
+    --accent:             hsl(142 60% 36%);
+    --accent-foreground:  hsl(0 0% 98%);
+    --destructive:        hsl(0 84% 60%);
     --destructive-foreground: hsl(0 0% 98%);
-    --border: hsl(217 32% 16%);
-    --input: hsl(217 32% 16%);
-    --ring: hsl(258 84% 65%);
+    --border:             hsl(0 0% 88%);
+    --input:              hsl(0 0% 88%);
+    --ring:               hsl(142 60% 36%);
 
-    --sidebar-background: hsl(222 47% 7%);
-    --sidebar-foreground: hsl(215 20% 80%);
-    --sidebar-primary: hsl(258 84% 65%);
-    --sidebar-primary-foreground: hsl(0 0% 100%);
-    --sidebar-accent: hsl(217 32% 14%);
-    --sidebar-accent-foreground: hsl(210 40% 90%);
-    --sidebar-border: hsl(217 32% 16%);
-    --sidebar-ring: hsl(258 84% 65%);
-    --sidebar: hsl(222 47% 7%);
+    --sidebar-background:           hsl(0 0% 98%);
+    --sidebar-foreground:           hsl(0 0% 30%);
+    --sidebar-primary:              hsl(142 60% 36%);
+    --sidebar-primary-foreground:   hsl(0 0% 98%);
+    --sidebar-accent:               hsl(0 0% 93%);
+    --sidebar-accent-foreground:    hsl(0 0% 20%);
+    --sidebar-border:               hsl(0 0% 88%);
+    --sidebar-ring:                 hsl(142 60% 36%);
+    --sidebar:                      hsl(0 0% 98%);
 
-    --portfolio-accent: 258 84% 65%;
-    --portfolio-accent-2: 210 100% 60%;
-    --portfolio-grid-line: 217 32% 16%;
+    --folio-green:        142 60% 36%;
+
+    --folio-bg:           hsl(0 0% 98%);
+    --folio-bg-card:      hsl(0 0% 100%);
+    --folio-bg-input:     hsl(0 0% 100%);
+    --folio-bg-tag:       hsl(0 0% 95%);
+
+    --folio-text-primary:   hsl(0 0% 10%);
+    --folio-text-secondary: hsl(0 0% 40%);
+    --folio-text-muted:     hsl(0 0% 55%);
+    --folio-text-faint:     hsl(0 0% 72%);
+
+    --folio-border:         hsl(0 0% 88%);
+    --folio-border-tag:     hsl(0 0% 83%);
+
+    --folio-chip-bg:        hsl(0 0% 94%);
+    --folio-chip-text:      hsl(0 0% 35%);
+    --folio-chip-border:    hsl(0 0% 83%);
+
+    --folio-nav-bg:         hsl(0 0% 98% / 0.94);
+    --folio-nav-border:     hsl(0 0% 88%);
 }
 
-/* ─── Base ───────────────────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════════
+   BASE
+═══════════════════════════════════════════════════════════════ */
 @layer base {
     * { @apply border-border outline-ring/50; }
-    body { @apply bg-background text-foreground; }
+    html { color-scheme: dark; }
+    html.light { color-scheme: light; }
+    body { @apply bg-background text-foreground antialiased; }
 }
 
 html {
@@ -155,148 +188,149 @@ html {
     html { scroll-behavior: auto; }
 }
 
-/* ─── Typography helpers ─────────────────────────────────────── */
-.section-label {
-    display: inline-block;
-    font-family: ui-monospace, monospace;
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: hsl(var(--portfolio-accent));
-    background: hsl(var(--portfolio-accent) / 0.1);
-    border: 1px solid hsl(var(--portfolio-accent) / 0.25);
-    border-radius: 999px;
-    padding: 0.25rem 0.75rem;
-}
-
-.section-heading {
-    font-size: 2rem;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    line-height: 1.15;
-    color: hsl(var(--foreground));
+/* ═══════════════════════════════════════════════════════════════
+   SECTION LAYOUT
+═══════════════════════════════════════════════════════════════ */
+.folio-section {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+    background-color: var(--folio-bg);
 }
 @media (min-width: 768px) {
-    .section-heading { font-size: 2.5rem; }
+    .folio-section { padding-top: 8rem; padding-bottom: 8rem; }
 }
 
-/* ─── Accent color utility ───────────────────────────────────── */
-.text-accent {
-    color: hsl(var(--portfolio-accent));
+/* ═══════════════════════════════════════════════════════════════
+   TYPOGRAPHY HELPERS
+═══════════════════════════════════════════════════════════════ */
+.folio-label {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: hsl(var(--folio-green));
 }
 
-/* ─── Grid background ────────────────────────────────────────── */
-.portfolio-grid-bg {
-    background-image:
-        linear-gradient(hsl(var(--portfolio-grid-line) / 0.6) 1px, transparent 1px),
-        linear-gradient(90deg, hsl(var(--portfolio-grid-line) / 0.6) 1px, transparent 1px);
-    background-size: 56px 56px;
+.folio-green { color: hsl(var(--folio-green)); }
+
+/* ═══════════════════════════════════════════════════════════════
+   NAVBAR
+═══════════════════════════════════════════════════════════════ */
+.folio-nav-link {
+    position: relative;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--folio-text-secondary);
+    transition: color 0.2s ease;
+    padding-bottom: 2px;
+}
+.folio-nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px; left: 0;
+    width: 0; height: 1px;
+    background: hsl(var(--folio-green));
+    transition: width 0.25s ease;
+}
+.folio-nav-link:hover         { color: var(--folio-text-primary); }
+.folio-nav-link.active        { color: var(--folio-text-primary); }
+.folio-nav-link.active::after,
+.folio-nav-link:hover::after  { width: 100%; }
+
+/* ═══════════════════════════════════════════════════════════════
+   COMPONENTS
+═══════════════════════════════════════════════════════════════ */
+
+/* Tag pill */
+.folio-tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    color: var(--folio-text-secondary);
+    border: 1px solid var(--folio-border-tag);
+    border-radius: 999px;
+    padding: 0.2rem 0.65rem;
+    background: var(--folio-bg-tag);
+    transition: all 0.2s ease;
+}
+.folio-tag:hover {
+    border-color: hsl(var(--folio-green) / 0.5);
+    color: hsl(var(--folio-green));
 }
 
-/* ─── Hero section ───────────────────────────────────────────── */
-.hero-orb-1 {
-    background: radial-gradient(circle, hsl(var(--portfolio-accent) / 0.18), transparent 70%);
-    animation: orb-drift 12s ease-in-out infinite alternate;
+/* Chip */
+.folio-chip {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--folio-chip-text);
+    border: 1px solid var(--folio-chip-border);
+    border-radius: 999px;
+    padding: 0.3rem 0.85rem;
+    background: var(--folio-chip-bg);
+    transition: all 0.2s ease;
 }
-.hero-orb-2 {
-    background: radial-gradient(circle, hsl(var(--portfolio-accent-2) / 0.12), transparent 70%);
-    animation: orb-drift-reverse 15s ease-in-out infinite alternate;
-}
-
-@keyframes orb-drift {
-    0%   { transform: translate(0, 0) scale(1); }
-    100% { transform: translate(-40px, 30px) scale(1.08); }
-}
-@keyframes orb-drift-reverse {
-    0%   { transform: translate(0, 0) scale(1); }
-    100% { transform: translate(30px, -40px) scale(1.05); }
-}
-
-.hero-gradient-text {
-    background: linear-gradient(
-        135deg,
-        hsl(var(--portfolio-accent)) 0%,
-        hsl(var(--portfolio-accent-2)) 100%
-    );
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+.folio-chip:hover, .folio-chip.active {
+    border-color: hsl(var(--folio-green) / 0.5);
+    color: hsl(var(--folio-green));
+    background: hsl(var(--folio-green) / 0.08);
 }
 
-.hero-cta-primary {
-    background: linear-gradient(135deg, hsl(var(--portfolio-accent)), hsl(var(--portfolio-accent-2)));
-    box-shadow: 0 4px 24px hsl(var(--portfolio-accent) / 0.35);
+/* Project card */
+.folio-project-card {
+    border: 1px solid var(--folio-border);
+    border-radius: 1rem;
+    overflow: hidden;
+    background-color: var(--folio-bg-card);
+    transition: border-color 0.3s ease;
 }
-.hero-cta-primary:hover {
-    box-shadow: 0 6px 32px hsl(var(--portfolio-accent) / 0.5);
+.folio-project-card:hover { border-color: hsl(var(--folio-green) / 0.4); }
+
+/* Buttons */
+.folio-btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 999px;
+    padding: 0.75rem 1.75rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    background: hsl(var(--folio-green));
+    color: hsl(0 0% 5%);
+    transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+.folio-btn-primary:hover {
+    background: hsl(var(--folio-green) / 0.85);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 32px hsl(var(--folio-green) / 0.25);
+}
+
+.folio-btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 999px;
+    padding: 0.75rem 1.75rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    border: 1px solid var(--folio-border);
+    color: var(--folio-text-secondary);
+    background: transparent;
+    transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+.folio-btn-ghost:hover {
+    border-color: hsl(var(--folio-green) / 0.6);
+    color: hsl(var(--folio-green));
     transform: translateY(-1px);
 }
 
-.hero-photo-frame {
-    box-shadow:
-        0 0 0 1px hsl(var(--portfolio-accent) / 0.15),
-        0 20px 60px hsl(var(--portfolio-accent) / 0.12),
-        0 8px 24px rgba(0,0,0,0.12);
+/* ═══════════════════════════════════════════════════════════════
+   ANIMATIONS
+═══════════════════════════════════════════════════════════════ */
+@keyframes bounce-y {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(8px); }
 }
-
-.hero-photo-glow {
-    background: radial-gradient(circle at center, hsl(var(--portfolio-accent) / 0.18), transparent 70%);
-    filter: blur(40px);
-    transform: scale(1.2);
-}
-
-/* ─── Highlights section ─────────────────────────────────────── */
-.highlight-card-glow {
-    background: radial-gradient(circle at center, hsl(var(--portfolio-accent) / 0.08), transparent 70%);
-}
-
-/* ─── Skills section ─────────────────────────────────────────── */
-.skill-card-glow {
-    background: radial-gradient(ellipse at top left, hsl(var(--portfolio-accent) / 0.07), transparent 60%);
-}
-
-/* ─── Contact section ────────────────────────────────────────── */
-.contact-bg-glow {
-    background: hsl(var(--portfolio-accent) / 1);
-}
-
-/* ─── Card hover glow effect ─────────────────────────────────── */
-.portfolio-card-glow {
-    position: relative;
-}
-.portfolio-card-glow::before {
-    content: '';
-    position: absolute;
-    inset: -1px;
-    border-radius: inherit;
-    padding: 1px;
-    background: linear-gradient(135deg, hsl(var(--portfolio-accent) / 0), hsl(var(--portfolio-accent) / 0));
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    mask-composite: exclude;
-    transition: background 0.3s ease;
-    pointer-events: none;
-}
-.portfolio-card-glow:hover::before {
-    background: linear-gradient(135deg, hsl(var(--portfolio-accent) / 0.5), hsl(var(--portfolio-accent-2) / 0.3));
-}
-
-/* ─── Skip to content ────────────────────────────────────────── */
-.skip-to-content {
-    position: fixed;
-    top: -100%;
-    left: 0;
-    z-index: 9999;
-    padding: 0.75rem 1.5rem;
-    background: hsl(var(--portfolio-accent));
-    color: white;
-    font-weight: 500;
-    border-radius: 0 0 0.5rem 0;
-    transition: top 0.2s;
-}
-.skip-to-content:focus { top: 0; }
-
-/* ─── Section dividers ───────────────────────────────────────── */
-section + section {
-    border-top: 1px solid hsl(var(--border));
-}
+.animate-bounce-y { animation: bounce-y 2s ease-in-out infinite; }
