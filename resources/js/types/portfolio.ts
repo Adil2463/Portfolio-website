@@ -101,3 +101,10 @@ export type ContactFormData = {
     subject: string;
     message: string;
 };
+
+export type Testimonial = {
+    quote: string;
+    name: string;
+    role: string;
+    company: string;
+};

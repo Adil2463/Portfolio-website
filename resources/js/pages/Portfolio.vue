@@ -2,12 +2,12 @@
 import { Head } from '@inertiajs/vue3';
 import { onMounted, onUnmounted } from 'vue';
 import HeroSection from '@/components/portfolio/HeroSection.vue';
-import HighlightsSection from '@/components/portfolio/HighlightsSection.vue';
 import AboutSection from '@/components/portfolio/AboutSection.vue';
 import SkillsSection from '@/components/portfolio/SkillsSection.vue';
 import ExperienceSection from '@/components/portfolio/ExperienceSection.vue';
 import ProjectsSection from '@/components/portfolio/ProjectsSection.vue';
 import EducationSection from '@/components/portfolio/EducationSection.vue';
+import TestimonialsSection from '@/components/portfolio/TestimonialsSection.vue';
 import ContactSection from '@/components/portfolio/ContactSection.vue';
 import { pageMetadata, personalInfo } from '@/data/portfolio';
 
@@ -48,11 +48,11 @@ onUnmounted(() => {
     </Head>
 
     <HeroSection />
-    <HighlightsSection />
     <AboutSection />
     <SkillsSection />
     <ExperienceSection />
     <ProjectsSection />
     <EducationSection />
+    <TestimonialsSection />
     <ContactSection />
 </template>

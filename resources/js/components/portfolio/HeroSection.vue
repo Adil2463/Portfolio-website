@@ -1,26 +1,26 @@
 <script setup lang="ts">
 import { motion } from 'motion-v';
-import { ArrowDown, ArrowRight, Mail } from '@lucide/vue';
-import SocialLinks from '@/components/portfolio/SocialLinks.vue';
+import { ArrowDown, ArrowUpRight } from '@lucide/vue';
 import { personalInfo } from '@/data/portfolio';
 import { useReducedMotion } from '@/composables/useReducedMotion';
 
 const { prefersReducedMotion } = useReducedMotion();
 
-const containerVariants = {
-    hidden: {},
-    visible: { transition: { staggerChildren: 0.12 } },
-};
-
+const containerVariants = { hidden: {}, visible: { transition: { staggerChildren: 0.1 } } };
 const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } },
+    hidden:  { opacity: 0, y: 28 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] } },
+};
+const photoVariants = {
+    hidden:  { opacity: 0, scale: 0.96 },
+    visible: { opacity: 1, scale: 1, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } },
 };
 
-const imageVariants = {
-    hidden: { opacity: 0, scale: 0.9 },
-    visible: { opacity: 1, scale: 1, transition: { duration: 0.7, ease: 'easeOut' } },
-};
+const stats = [
+    { value: '1+',  label: 'Year\nexperience' },
+    { value: '5+',  label: 'Projects\ndelivered' },
+    { value: '10+', label: 'Technologies\nmastered' },
+];
 
 function scrollTo(id: string) {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
@@ -30,150 +30,153 @@ function scrollTo(id: string) {
 <template>
     <section
         id="hero"
-        class="relative flex min-h-screen items-center overflow-hidden"
+        class="relative flex min-h-screen flex-col justify-between overflow-hidden px-6 pb-16 pt-28 md:px-10 lg:px-12"
+        :style="{ background: 'var(--folio-bg)' }"
     >
-        <!-- Animated gradient orbs -->
-        <div class="pointer-events-none absolute inset-0 overflow-hidden">
-            <div
-                class="hero-orb-1 absolute -top-40 -right-40 h-[600px] w-[600px] rounded-full"
-                :class="prefersReducedMotion ? '' : 'animate-orb-drift'"
-            />
-            <div
-                class="hero-orb-2 absolute -bottom-40 -left-40 h-[500px] w-[500px] rounded-full"
-                :class="prefersReducedMotion ? '' : 'animate-orb-drift-reverse'"
-            />
-            <!-- Grid overlay -->
-            <div class="portfolio-grid-bg absolute inset-0 opacity-30" />
-        </div>
+        <!-- Radial glow -->
+        <div class="pointer-events-none absolute -top-32 -right-32 h-[500px] w-[500px] rounded-full opacity-[0.07]"
+            style="background: radial-gradient(circle, hsl(142 71% 45%), transparent 70%)" />
 
-        <div class="relative mx-auto w-full max-w-6xl px-6 py-24 md:px-8 lg:px-12">
-            <div class="grid items-center gap-16 lg:grid-cols-2">
+        <!-- Main content -->
+        <div class="relative z-10 mx-auto w-full max-w-6xl flex-1">
+            <div class="grid min-h-[calc(100vh-12rem)] items-center gap-12 lg:grid-cols-2 lg:gap-0">
 
-                <!-- LEFT: Text content -->
+                <!-- LEFT: text -->
                 <motion.div
                     :variants="prefersReducedMotion ? undefined : containerVariants"
-                    initial="hidden"
-                    animate="visible"
+                    initial="hidden" animate="visible"
                     class="flex flex-col"
                 >
-                    <!-- Available badge -->
                     <motion.div :variants="prefersReducedMotion ? undefined : itemVariants">
-                        <span class="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-4 py-1.5 text-xs font-medium text-accent">
-                            <span class="relative flex h-2 w-2">
-                                <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
-                                <span class="relative inline-flex h-2 w-2 rounded-full bg-green-500" />
+                        <span class="inline-flex items-center gap-2 text-xs font-medium" :style="{ color: 'var(--folio-text-muted)' }">
+                            <span class="relative flex h-1.5 w-1.5">
+                                <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-[hsl(142_71%_45%)] opacity-70" />
+                                <span class="relative inline-flex h-1.5 w-1.5 rounded-full bg-[hsl(142_71%_45%)]" />
                             </span>
                             {{ personalInfo.availability }}
                         </span>
                     </motion.div>
 
-                    <!-- Name -->
                     <motion.h1
                         :variants="prefersReducedMotion ? undefined : itemVariants"
-                        class="mt-6 text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl"
+                        class="mt-6 text-[clamp(2.8rem,8vw,5.5rem)] font-extrabold leading-[1.0] tracking-[-0.03em]"
+                        :style="{ color: 'var(--folio-text-primary)' }"
                     >
                         Hi, I'm<br />
-                        <span class="hero-gradient-text">{{ personalInfo.name }}</span>
+                        <span class="folio-green">{{ personalInfo.name }}</span>
                     </motion.h1>
 
-                    <!-- Title pill -->
-                    <motion.div :variants="prefersReducedMotion ? undefined : itemVariants" class="mt-4">
-                        <span class="inline-block rounded-full border border-border bg-muted/50 px-4 py-1.5 text-sm font-medium text-muted-foreground backdrop-blur-sm">
-                            {{ personalInfo.title }}
-                        </span>
-                    </motion.div>
-
-                    <!-- Summary -->
                     <motion.p
                         :variants="prefersReducedMotion ? undefined : itemVariants"
-                        class="mt-6 max-w-lg text-base leading-relaxed text-muted-foreground md:text-lg"
+                        class="mt-4 text-base font-medium md:text-lg"
+                        :style="{ color: 'var(--folio-text-muted)' }"
                     >
-                        {{ personalInfo.summary }}
+                        {{ personalInfo.title }}
                     </motion.p>
 
-                    <!-- CTA Buttons -->
+                    <motion.p
+                        :variants="prefersReducedMotion ? undefined : itemVariants"
+                        class="mt-5 max-w-md text-sm leading-relaxed md:text-[0.9375rem]"
+                        :style="{ color: 'var(--folio-text-secondary)' }"
+                    >
+                        Building scalable web apps with
+                        <span :style="{ color: 'var(--folio-text-primary)' }">Laravel</span>,
+                        <span :style="{ color: 'var(--folio-text-primary)' }">Vue.js</span> and
+                        <span :style="{ color: 'var(--folio-text-primary)' }">MySQL</span> —
+                        from clean APIs to polished interfaces.
+                    </motion.p>
+
                     <motion.div
                         :variants="prefersReducedMotion ? undefined : itemVariants"
-                        class="mt-8 flex flex-wrap gap-4"
+                        class="mt-8 flex flex-wrap items-center gap-3"
                     >
-                        <button
-                            class="hero-cta-primary group inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white transition-all duration-300"
-                            @click="scrollTo('projects')"
-                        >
-                            View My Work
-                            <ArrowRight class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                        <button class="folio-btn-primary" @click="scrollTo('projects')">
+                            View my work <ArrowUpRight class="h-4 w-4" />
                         </button>
-                        <button
-                            class="inline-flex items-center gap-2 rounded-full border border-border bg-background/80 px-6 py-3 text-sm font-semibold transition-all duration-300 hover:border-accent/50 hover:bg-accent/5 hover:text-accent"
-                            @click="scrollTo('contact')"
-                        >
-                            <Mail class="h-4 w-4" />
-                            Let's Talk
+                        <button class="folio-btn-ghost" @click="scrollTo('contact')">
+                            Let's talk
                         </button>
                     </motion.div>
 
-                    <!-- Social links -->
                     <motion.div
                         :variants="prefersReducedMotion ? undefined : itemVariants"
-                        class="mt-8 flex items-center gap-4"
+                        class="mt-8 flex flex-wrap items-center gap-x-5 gap-y-3"
                     >
-                        <span class="text-xs text-muted-foreground">Find me on</span>
-                        <div class="h-px w-8 bg-border" />
-                        <SocialLinks :links="personalInfo.socialLinks" size="md" />
+                        <a :href="personalInfo.socialLinks.find(l => l.platform === 'linkedin')?.url"
+                            target="_blank" rel="noopener noreferrer"
+                            class="flex items-center gap-2 text-xs transition-colors hover:opacity-80"
+                            :style="{ color: 'var(--folio-text-secondary)' }">
+                            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                            </svg>
+                            LinkedIn
+                        </a>
+                        <span class="hidden h-3 w-px sm:block" :style="{ background: 'var(--folio-border)' }" />
+                        <a :href="personalInfo.socialLinks.find(l => l.platform === 'github')?.url"
+                            target="_blank" rel="noopener noreferrer"
+                            class="flex items-center gap-2 text-xs transition-colors hover:opacity-80"
+                            :style="{ color: 'var(--folio-text-secondary)' }">
+                            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+                            </svg>
+                            GitHub
+                        </a>
+                        <span class="hidden h-3 w-px sm:block" :style="{ background: 'var(--folio-border)' }" />
+                        <a :href="`mailto:${personalInfo.email}`"
+                            class="truncate text-xs transition-colors hover:opacity-80"
+                            :style="{ color: 'var(--folio-text-secondary)' }">
+                            {{ personalInfo.email }}
+                        </a>
                     </motion.div>
                 </motion.div>
 
-                <!-- RIGHT: Photo + floating cards -->
+                <!-- RIGHT: photo -->
                 <motion.div
-                    :variants="prefersReducedMotion ? undefined : imageVariants"
-                    initial="hidden"
-                    animate="visible"
-                    class="relative hidden lg:flex lg:justify-center"
+                    :variants="prefersReducedMotion ? undefined : photoVariants"
+                    initial="hidden" animate="visible"
+                    class="relative hidden lg:flex lg:justify-end"
                 >
-                    <!-- Glow ring behind photo -->
-                    <div class="hero-photo-glow absolute inset-0 rounded-full" />
-
-                    <!-- Photo frame -->
-                    <div class="hero-photo-frame relative z-10 h-80 w-80 overflow-hidden rounded-3xl xl:h-96 xl:w-96">
-                        <img
-                            src="/Image.jpg"
-                            alt="Adil Anwar"
-                            class="h-full w-full object-cover object-top"
-                        />
-                        <!-- Subtle gradient overlay at bottom -->
-                        <div class="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-background/40 to-transparent" />
+                    <div class="pointer-events-none absolute inset-0 rounded-2xl opacity-20 blur-3xl"
+                        style="background: radial-gradient(circle at 50% 60%, hsl(142 71% 45%), transparent 65%)" />
+                    <div class="relative h-[520px] w-[400px] overflow-hidden rounded-2xl">
+                        <div class="absolute inset-0 z-10 bg-gradient-to-t from-[var(--folio-bg)] via-transparent to-transparent" />
+                        <img src="/Image.jpg" alt="Adil Anwar — Full Stack Developer"
+                            class="h-full w-full object-cover object-top" />
                     </div>
-
-                    <!-- Floating card: Stack -->
-                    <div class="absolute -bottom-4 -left-8 z-20 rounded-2xl border border-border/60 bg-background/90 px-4 py-3 shadow-xl backdrop-blur-md">
-                        <p class="text-xs font-medium text-muted-foreground">Tech Stack</p>
-                        <div class="mt-1.5 flex gap-1.5">
-                            <span v-for="tech in ['Laravel', 'Vue', 'MySQL']" :key="tech"
-                                class="rounded-md bg-accent/10 px-2 py-0.5 font-mono text-xs font-medium text-accent">
-                                {{ tech }}
-                            </span>
-                        </div>
-                    </div>
-
-                    <!-- Floating card: Experience -->
-                    <div class="absolute -top-4 -right-6 z-20 rounded-2xl border border-border/60 bg-background/90 px-4 py-3 shadow-xl backdrop-blur-md">
-                        <p class="font-mono text-2xl font-bold text-foreground">1+</p>
-                        <p class="text-xs text-muted-foreground">Year Experience</p>
+                    <div class="absolute bottom-5 left-5 z-20 flex items-center gap-2 rounded-full border px-3.5 py-2 backdrop-blur-sm"
+                        :style="{ borderColor: 'var(--folio-border)', background: 'var(--folio-bg-card)' }">
+                        <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" :style="{ color: 'hsl(var(--folio-green))' }">
+                            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        <span class="text-xs font-medium" :style="{ color: 'var(--folio-text-secondary)' }">{{ personalInfo.location }}</span>
                     </div>
                 </motion.div>
             </div>
         </div>
 
-        <!-- Scroll indicator -->
-        <div class="absolute bottom-8 left-1/2 -translate-x-1/2">
-            <motion.div
-                :animate="prefersReducedMotion ? {} : { y: [0, 8, 0] }"
-                :transition="{ duration: 2, repeat: Infinity, ease: 'easeInOut' }"
-                class="flex flex-col items-center gap-1"
-            >
-                <span class="text-xs text-muted-foreground/40">scroll</span>
-                <ArrowDown class="h-4 w-4 text-muted-foreground/40" />
-            </motion.div>
+        <!-- Bottom stats bar -->
+        <div class="relative z-10 mx-auto w-full max-w-6xl">
+            <div class="flex items-end justify-between border-t pt-8" :style="{ borderColor: 'var(--folio-border)' }">
+                <motion.div
+                    :variants="prefersReducedMotion ? undefined : containerVariants"
+                    initial="hidden" animate="visible"
+                    class="flex gap-8 sm:gap-12"
+                >
+                    <motion.div v-for="stat in stats" :key="stat.value"
+                        :variants="prefersReducedMotion ? undefined : itemVariants"
+                        class="flex flex-col"
+                    >
+                        <span class="font-mono text-2xl font-bold md:text-3xl" :style="{ color: 'var(--folio-text-primary)' }">{{ stat.value }}</span>
+                        <span class="mt-0.5 whitespace-pre-line text-xs leading-tight" :style="{ color: 'var(--folio-text-muted)' }">{{ stat.label }}</span>
+                    </motion.div>
+                </motion.div>
+                <div class="hidden flex-col items-center gap-1.5 sm:flex">
+                    <span class="text-[10px] font-medium uppercase tracking-[0.15em]" :style="{ color: 'var(--folio-text-faint)' }">Scroll</span>
+                    <div class="animate-bounce-y">
+                        <ArrowDown class="h-3.5 w-3.5" :style="{ color: 'var(--folio-text-faint)' }" />
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 </template>

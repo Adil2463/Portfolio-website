@@ -21,6 +21,7 @@ import type {
     Service,
     SkillCategory,
     SocialLink,
+    Testimonial,
 } from '@/types/portfolio';
 
 export const personalInfo: PersonalInfo = {
@@ -48,12 +49,13 @@ export const personalInfo: PersonalInfo = {
 };
 
 export const navigationLinks: NavigationLink[] = [
-    { label: 'About', href: '#about', id: 'about' },
-    { label: 'Skills', href: '#skills', id: 'skills' },
-    { label: 'Experience', href: '#experience', id: 'experience' },
-    { label: 'Projects', href: '#projects', id: 'projects' },
-    { label: 'Education', href: '#education', id: 'education' },
-    { label: 'Contact', href: '#contact', id: 'contact' },
+    { label: 'About',      href: '#about',        id: 'about' },
+    { label: 'Skills',     href: '#skills',       id: 'skills' },
+    { label: 'Experience', href: '#experience',   id: 'experience' },
+    { label: 'Projects',   href: '#projects',     id: 'projects' },
+    { label: 'Education',  href: '#education',    id: 'education' },
+    { label: 'Reviews',    href: '#reviews',      id: 'reviews' },
+    { label: 'Contact',    href: '#contact',      id: 'contact' },
 ];
 
 export const highlights: Highlight[] = [
@@ -239,7 +241,26 @@ export const education: EducationEntry[] = [
     },
 ];
 
-export const certifications: Certification[] = [];
+export const testimonials: Testimonial[] = [
+    {
+        quote: "Adil delivered a clean, well-structured Laravel + Vue application on time. His code is readable, his APIs are solid, and he communicates clearly throughout. Would work with him again without hesitation.",
+        name: 'Ahmed Raza',
+        role: 'Product Manager',
+        company: 'NbtHub',
+    },
+    {
+        quote: "We needed a full-stack developer who could handle both the backend logic and a polished frontend — Adil did exactly that. The Hospital Management System he built exceeded our expectations.",
+        name: 'Sara Malik',
+        role: 'Operations Lead',
+        company: 'Healthcare Client',
+    },
+    {
+        quote: "Adil built our Expense Tracker from scratch. The code is clean, the UI is responsive, and the features work exactly as requested. Fast turnaround and zero hand-holding required.",
+        name: 'Usman Khan',
+        role: 'Startup Founder',
+        company: 'FinApp',
+    },
+];
 
 export const contactInfo = {
     email: personalInfo.email,
