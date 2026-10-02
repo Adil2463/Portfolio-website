@@ -1,79 +1,153 @@
 <script setup lang="ts">
 import { motion } from 'motion-v';
-import { ArrowUpRight } from '@lucide/vue';
-import { personalInfo } from '@/data/portfolio';
+import { ArrowUpRight, Briefcase, Clock3, GraduationCap } from '@lucide/vue';
+import { useLocalTime } from '@/composables/useLocalTime';
 import { useReducedMotion } from '@/composables/useReducedMotion';
+import { education, experiences, personalInfo, services } from '@/data/portfolio';
+import { fadeUp, inView, stagger } from '@/lib/motion';
+import { scrollToSection } from '@/lib/scroll';
+import { trackSpotlight } from '@/lib/spotlight';
 
 const { prefersReducedMotion } = useReducedMotion();
-const cv = { hidden: {}, visible: { transition: { staggerChildren: 0.1 } } };
-const iv = { hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0, transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] } } };
+const v = <T,>(variants: T) => (prefersReducedMotion.value ? undefined : variants);
 
-const tools = ['PHP','Laravel','Vue.js','Nuxt.js','TypeScript','JavaScript','MySQL','Tailwind CSS','HTML / CSS','Git','REST APIs','PHPUnit'];
-const linkedinUrl = personalInfo.socialLinks.find(l => l.platform === 'linkedin')?.url ?? '#';
-const githubUrl   = personalInfo.socialLinks.find(l => l.platform === 'github')?.url ?? '#';
+const localTime = useLocalTime(personalInfo.timezone);
+const current = experiences.find((e) => e.endDate === null) ?? experiences[0];
+const degree = education[0];
 </script>
 
 <template>
-    <section id="about" class="folio-section" :style="{ borderTop: '1px solid var(--folio-border)' }">
-        <div class="mx-auto max-w-6xl px-6 md:px-10 lg:px-12">
-            <motion.div :variants="prefersReducedMotion?undefined:cv" initial="hidden" while-in-view="visible" :viewport="{once:true,margin:'-80px'}" class="grid gap-16 lg:grid-cols-2 lg:gap-24">
+    <section id="about" class="folio-section">
+        <div class="folio-container">
+            <!-- Statement -->
+            <motion.div
+                :variants="v(stagger(0.1))"
+                initial="hidden"
+                while-in-view="visible"
+                :viewport="inView"
+                class="flex flex-col gap-6"
+            >
+                <motion.p :variants="v(fadeUp)" class="folio-eyebrow">About me</motion.p>
+                <motion.h2
+                    :variants="v(fadeUp)"
+                    class="folio-display text-[clamp(1.75rem,3.6vw,3rem)] leading-[1.08] text-ink max-w-4xl"
+                >
+                    I'm a developer who sweats the <span class="folio-em">details</span> — clean code, fast pages and
+                    interfaces that simply make sense.
+                </motion.h2>
+            </motion.div>
 
-                <!-- Photo -->
-                <motion.div :variants="prefersReducedMotion?undefined:iv" class="relative">
-                    <div class="relative overflow-hidden rounded-2xl">
-                        <img src="/Image.jpg" alt="Adil Anwar" class="max-h-[420px] w-full object-cover object-top sm:max-h-[560px]" />
-                        <div class="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[var(--folio-bg)] to-transparent" />
+            <!-- Bento -->
+            <motion.div
+                :variants="v(stagger(0.08))"
+                initial="hidden"
+                while-in-view="visible"
+                :viewport="inView"
+                class="mt-16 grid gap-4 md:mt-20 md:grid-cols-2 lg:grid-cols-3"
+            >
+                <!-- Bio -->
+                <motion.article
+                    :variants="v(fadeUp)"
+                    class="folio-card folio-spotlight flex flex-col justify-between p-7 md:col-span-2 md:p-9"
+                    @pointermove="trackSpotlight"
+                >
+                    <div class="space-y-4 text-base leading-relaxed text-ink-soft md:text-[1.05rem]">
+                        <p>
+                            I'm <span class="font-medium text-ink">{{ personalInfo.name }}</span>, a full-stack developer from
+                            {{ personalInfo.location }}. I turn ideas into complete products — designing the database,
+                            writing the API and crafting the interface on top.
+                        </p>
+                        <p>
+                            My go-to stack is Laravel and Vue.js with TypeScript and Tailwind CSS. I care about
+                            maintainable code, honest performance and the small UX details that make software feel good.
+                        </p>
                     </div>
-                    <div class="absolute right-4 bottom-8 flex flex-col items-center rounded-2xl border px-5 py-4 backdrop-blur-sm"
-                        :style="{ borderColor: 'var(--folio-border)', background: 'var(--folio-bg-card)' }">
-                        <span class="font-mono text-3xl font-bold" :style="{ color: 'var(--folio-text-primary)' }">1+</span>
-                        <span class="mt-0.5 text-xs" :style="{ color: 'var(--folio-text-muted)' }">Year exp.</span>
+                    <div class="mt-8 flex flex-wrap items-center gap-3">
+                        <button class="folio-btn folio-btn-solid" @click="scrollToSection('contact')">
+                            Work with me <ArrowUpRight class="folio-btn-icon h-4 w-4" />
+                        </button>
+                        <span v-if="degree" class="folio-pill">
+                            <GraduationCap class="h-3.5 w-3.5" /> {{ degree.qualification }} · {{ degree.endDate }}
+                        </span>
                     </div>
-                </motion.div>
+                </motion.article>
 
-                <!-- Text -->
-                <motion.div :variants="prefersReducedMotion?undefined:cv" class="flex flex-col justify-center">
-                    <motion.p :variants="prefersReducedMotion?undefined:iv" class="folio-label">About me</motion.p>
-                    <motion.h2 :variants="prefersReducedMotion?undefined:iv"
-                        class="mt-3 text-[clamp(1.9rem,4vw,2.8rem)] font-extrabold leading-[1.1] tracking-[-0.03em]"
-                        :style="{ color: 'var(--folio-text-primary)' }">
-                        A bit about<br /><em class="not-italic folio-green">who I am</em>
-                    </motion.h2>
-                    <motion.p :variants="prefersReducedMotion?undefined:iv" class="mt-6 text-[0.9375rem] leading-[1.8]" :style="{ color: 'var(--folio-text-secondary)' }">
-                        I'm <span :style="{ color: 'var(--folio-text-primary)', fontWeight: 500 }">Adil Anwar</span>,
-                        a Full Stack Developer based in <span :style="{ color: 'var(--folio-text-primary)', fontWeight: 500 }">HaroonAbad, Pakistan</span>,
-                        with experience building scalable web applications. Currently at
-                        <span class="folio-green font-medium">NbtHub</span> shipping products end-to-end.
-                    </motion.p>
-                    <motion.p :variants="prefersReducedMotion?undefined:iv" class="mt-4 text-[0.9375rem] leading-[1.8]" :style="{ color: 'var(--folio-text-secondary)' }">
-                        I care about clean, maintainable code and user-focused design — from REST API architecture to polished Vue interfaces.
-                    </motion.p>
-                    <motion.div :variants="prefersReducedMotion?undefined:iv" class="mt-8">
-                        <p class="mb-3 text-xs font-semibold uppercase tracking-[0.12em]" :style="{ color: 'var(--folio-text-muted)' }">Stack &amp; tools</p>
-                        <div class="flex flex-wrap gap-2">
-                            <span v-for="tool in tools" :key="tool" class="folio-chip">{{ tool }}</span>
-                        </div>
-                    </motion.div>
-                    <motion.div :variants="prefersReducedMotion?undefined:iv" class="mt-8 flex flex-wrap items-center gap-4">
-                        <a :href="linkedinUrl" target="_blank" rel="noopener noreferrer"
-                            class="inline-flex items-center gap-1.5 text-sm font-medium transition-colors hover:folio-green"
-                            :style="{ color: 'var(--folio-text-muted)' }">
-                            LinkedIn <ArrowUpRight class="h-3.5 w-3.5" />
-                        </a>
-                        <span class="h-3 w-px" :style="{ background: 'var(--folio-border)' }" />
-                        <a :href="githubUrl" target="_blank" rel="noopener noreferrer"
-                            class="inline-flex items-center gap-1.5 text-sm font-medium transition-colors"
-                            :style="{ color: 'var(--folio-text-muted)' }">
-                            GitHub <ArrowUpRight class="h-3.5 w-3.5" />
-                        </a>
-                        <span class="h-3 w-px" :style="{ background: 'var(--folio-border)' }" />
-                        <a :href="`mailto:${personalInfo.email}`"
-                            class="inline-flex items-center gap-1.5 text-sm font-medium transition-colors"
-                            :style="{ color: 'var(--folio-text-muted)' }">
-                            {{ personalInfo.email }} <ArrowUpRight class="h-3.5 w-3.5" />
-                        </a>
-                    </motion.div>
-                </motion.div>
+                <!-- Local time -->
+                <motion.article
+                    :variants="v(fadeUp)"
+                    class="folio-card folio-spotlight flex flex-col justify-between p-7"
+                    @pointermove="trackSpotlight"
+                >
+                    <div class="flex items-center justify-between">
+                        <p class="font-mono text-xs tracking-widest text-ink-muted uppercase">Based in</p>
+                        <Clock3 class="h-4 w-4 text-ink-muted" />
+                    </div>
+                    <div class="mt-10">
+                        <p class="folio-display text-6xl text-ink">{{ localTime || '--:--' }}</p>
+                        <p class="mt-3 text-sm text-ink-soft">{{ personalInfo.location }}</p>
+                        <p class="text-xs text-ink-muted">PKT · UTC+5 · Open to remote work</p>
+                    </div>
+                </motion.article>
+
+                <!-- Currently -->
+                <motion.article
+                    v-if="current"
+                    :variants="v(fadeUp)"
+                    class="folio-card flex min-h-80 flex-col justify-between border-transparent bg-inverse p-7 text-inverse-ink"
+                >
+                    <!-- Decorative backdrop icon -->
+                    <Briefcase class="pointer-events-none absolute -right-8 -bottom-8 h-44 w-44 opacity-[0.06]" stroke-width="1.25" aria-hidden="true" />
+
+                    <div class="relative flex items-center justify-between">
+                        <p class="font-mono text-xs tracking-widest uppercase opacity-60">Currently</p>
+                        <span class="inline-flex items-center gap-2 rounded-full bg-inverse-ink/10 px-2.5 py-1 text-[0.7rem] font-medium">
+                            <span class="relative flex h-1.5 w-1.5">
+                                <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                                <span class="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                            </span>
+                            Now
+                        </span>
+                    </div>
+
+                    <div class="relative mt-10">
+                        <span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand font-display text-xl font-bold text-brand-ink">
+                            {{ current.company.charAt(0) }}
+                        </span>
+                        <p class="folio-display mt-5 text-[1.75rem] leading-tight">{{ current.role }}</p>
+                        <p class="mt-2 text-sm opacity-70">
+                            at <span class="font-semibold opacity-100">{{ current.company }}</span> · {{ current.location }} ·
+                            since {{ current.startDate }}
+                        </p>
+                        <ul class="mt-5 flex flex-wrap gap-1.5">
+                            <li
+                                v-for="tech in current.technologies.slice(0, 4)"
+                                :key="tech"
+                                class="rounded-full border border-inverse-ink/15 px-2.5 py-1 text-[0.72rem] opacity-80"
+                            >
+                                {{ tech }}
+                            </li>
+                        </ul>
+                    </div>
+                </motion.article>
+
+                <!-- What I do -->
+                <motion.article
+                    :variants="v(fadeUp)"
+                    class="folio-card p-7 md:col-span-2 md:p-9"
+                >
+                    <p class="font-mono text-xs tracking-widest text-ink-muted uppercase">What I do</p>
+                    <ul class="mt-6 grid gap-x-8 gap-y-6 sm:grid-cols-2">
+                        <li v-for="s in services" :key="s.title" class="flex gap-4">
+                            <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand/10 text-brand">
+                                <component :is="s.icon" class="h-[1.1rem] w-[1.1rem]" />
+                            </span>
+                            <div>
+                                <p class="font-display text-base font-semibold text-ink">{{ s.title }}</p>
+                                <p class="mt-1 text-sm leading-relaxed text-ink-muted">{{ s.description }}</p>
+                            </div>
+                        </li>
+                    </ul>
+                </motion.article>
             </motion.div>
         </div>
     </section>

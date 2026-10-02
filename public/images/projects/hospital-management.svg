@@ -1,0 +1,153 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 800" font-family="Inter, 'Segoe UI', Arial, sans-serif">
+  <defs>
+    <linearGradient id="area" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2dd4bf" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#2dd4bf" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="bar" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#2dd4bf"/>
+      <stop offset="1" stop-color="#3b82f6"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1280" height="800" fill="#0a1120"/>
+
+  <!-- Sidebar -->
+  <rect width="224" height="800" fill="#0e1729"/>
+  <rect x="223" width="1" height="800" fill="#1c2840"/>
+  <rect x="28" y="26" width="34" height="34" rx="9" fill="url(#bar)"/>
+  <path d="M45 34v18M36 43h18" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+  <text x="74" y="49" fill="#e6edf7" font-size="18" font-weight="700">MediCare</text>
+
+  <text x="28" y="108" fill="#55657f" font-size="11" font-weight="600" letter-spacing="1.5">MAIN MENU</text>
+  <rect x="16" y="124" width="192" height="40" rx="10" fill="#2dd4bf" fill-opacity="0.12"/>
+  <rect x="16" y="124" width="3" height="40" rx="1.5" fill="#2dd4bf"/>
+  <rect x="34" y="137" width="14" height="14" rx="3" fill="#2dd4bf"/>
+  <text x="62" y="149" fill="#2dd4bf" font-size="14" font-weight="600">Dashboard</text>
+  <g fill="#8494ad" font-size="14">
+    <rect x="34" y="185" width="14" height="14" rx="7" fill="#3a4a66"/><text x="62" y="197">Patients</text>
+    <rect x="34" y="229" width="14" height="14" rx="3" fill="#3a4a66"/><text x="62" y="241">Appointments</text>
+    <rect x="34" y="273" width="14" height="14" rx="7" fill="#3a4a66"/><text x="62" y="285">Doctors</text>
+    <rect x="34" y="317" width="14" height="14" rx="3" fill="#3a4a66"/><text x="62" y="329">Medical Records</text>
+    <rect x="34" y="361" width="14" height="14" rx="3" fill="#3a4a66"/><text x="62" y="373">Billing</text>
+    <rect x="34" y="405" width="14" height="14" rx="7" fill="#3a4a66"/><text x="62" y="417">Pharmacy</text>
+  </g>
+  <text x="28" y="472" fill="#55657f" font-size="11" font-weight="600" letter-spacing="1.5">SYSTEM</text>
+  <g fill="#8494ad" font-size="14">
+    <rect x="34" y="497" width="14" height="14" rx="3" fill="#3a4a66"/><text x="62" y="509">Staff &amp; Roles</text>
+    <rect x="34" y="541" width="14" height="14" rx="7" fill="#3a4a66"/><text x="62" y="553">Settings</text>
+  </g>
+  <rect x="16" y="690" width="192" height="80" rx="14" fill="#13203a"/>
+  <circle cx="48" cy="730" r="16" fill="#3b82f6"/>
+  <text x="41" y="735" fill="#fff" font-size="13" font-weight="700">SA</text>
+  <text x="74" y="726" fill="#e6edf7" font-size="13" font-weight="600">Dr. S. Ahmed</text>
+  <text x="74" y="744" fill="#6b7b96" font-size="11">Administrator</text>
+
+  <!-- Top bar -->
+  <text x="256" y="52" fill="#e6edf7" font-size="22" font-weight="700">Dashboard</text>
+  <text x="256" y="72" fill="#6b7b96" font-size="12">Thursday, 2 October 2026</text>
+  <rect x="760" y="28" width="320" height="40" rx="10" fill="#111c31" stroke="#1c2840"/>
+  <circle cx="784" cy="48" r="7" fill="none" stroke="#55657f" stroke-width="2"/>
+  <text x="802" y="53" fill="#55657f" font-size="13">Search patients, doctors…</text>
+  <rect x="1096" y="28" width="40" height="40" rx="10" fill="#111c31" stroke="#1c2840"/>
+  <circle cx="1124" cy="38" r="4" fill="#f43f5e"/>
+  <rect x="1148" y="28" width="104" height="40" rx="10" fill="#2dd4bf"/>
+  <text x="1166" y="53" fill="#06221f" font-size="13" font-weight="700">+ New Visit</text>
+
+  <!-- Stat cards -->
+  <g>
+    <rect x="256" y="100" width="236" height="112" rx="14" fill="#0f1a2e" stroke="#1c2840"/>
+    <text x="276" y="130" fill="#8494ad" font-size="13">Total Patients</text>
+    <text x="276" y="170" fill="#e6edf7" font-size="30" font-weight="700">1,284</text>
+    <rect x="276" y="184" width="54" height="18" rx="9" fill="#22c55e" fill-opacity="0.15"/>
+    <text x="284" y="197" fill="#4ade80" font-size="11" font-weight="600">+12.4%</text>
+    <rect x="436" y="118" width="38" height="38" rx="10" fill="#2dd4bf" fill-opacity="0.15"/>
+    <circle cx="455" cy="132" r="5" fill="#2dd4bf"/><path d="M445 148a10 8 0 0 1 20 0" fill="#2dd4bf"/>
+
+    <rect x="508" y="100" width="236" height="112" rx="14" fill="#0f1a2e" stroke="#1c2840"/>
+    <text x="528" y="130" fill="#8494ad" font-size="13">Appointments Today</text>
+    <text x="528" y="170" fill="#e6edf7" font-size="30" font-weight="700">86</text>
+    <rect x="528" y="184" width="46" height="18" rx="9" fill="#22c55e" fill-opacity="0.15"/>
+    <text x="536" y="197" fill="#4ade80" font-size="11" font-weight="600">+8.1%</text>
+    <rect x="688" y="118" width="38" height="38" rx="10" fill="#3b82f6" fill-opacity="0.15"/>
+    <rect x="697" y="127" width="20" height="20" rx="4" fill="none" stroke="#60a5fa" stroke-width="2.5"/>
+
+    <rect x="760" y="100" width="236" height="112" rx="14" fill="#0f1a2e" stroke="#1c2840"/>
+    <text x="780" y="130" fill="#8494ad" font-size="13">Doctors on Duty</text>
+    <text x="780" y="170" fill="#e6edf7" font-size="30" font-weight="700">42</text>
+    <text x="780" y="198" fill="#6b7b96" font-size="11">of 56 registered</text>
+    <rect x="940" y="118" width="38" height="38" rx="10" fill="#a78bfa" fill-opacity="0.15"/>
+    <path d="M951 137h16M959 129v16" stroke="#a78bfa" stroke-width="3" stroke-linecap="round"/>
+
+    <rect x="1012" y="100" width="240" height="112" rx="14" fill="#0f1a2e" stroke="#1c2840"/>
+    <text x="1032" y="130" fill="#8494ad" font-size="13">Bed Occupancy</text>
+    <text x="1032" y="170" fill="#e6edf7" font-size="30" font-weight="700">78%</text>
+    <rect x="1032" y="186" width="200" height="8" rx="4" fill="#1c2840"/>
+    <rect x="1032" y="186" width="156" height="8" rx="4" fill="url(#bar)"/>
+  </g>
+
+  <!-- Chart card -->
+  <rect x="256" y="232" width="640" height="308" rx="14" fill="#0f1a2e" stroke="#1c2840"/>
+  <text x="280" y="268" fill="#e6edf7" font-size="16" font-weight="600">Patient Visits</text>
+  <text x="280" y="288" fill="#6b7b96" font-size="12">Outpatient vs. emergency, last 12 months</text>
+  <rect x="740" y="252" width="132" height="30" rx="8" fill="#111c31" stroke="#1c2840"/>
+  <text x="756" y="272" fill="#8494ad" font-size="12">This year  ▾</text>
+  <g stroke="#1a2640" stroke-width="1">
+    <line x1="300" y1="330" x2="872" y2="330"/>
+    <line x1="300" y1="380" x2="872" y2="380"/>
+    <line x1="300" y1="430" x2="872" y2="430"/>
+    <line x1="300" y1="480" x2="872" y2="480"/>
+  </g>
+  <g fill="#55657f" font-size="10">
+    <text x="272" y="334">400</text><text x="272" y="384">300</text><text x="272" y="434">200</text><text x="272" y="484">100</text>
+  </g>
+  <path d="M300 440 L352 420 L404 430 L456 395 L508 405 L560 370 L612 380 L664 345 L716 360 L768 330 L820 342 L872 318 L872 500 L300 500Z" fill="url(#area)"/>
+  <path d="M300 440 L352 420 L404 430 L456 395 L508 405 L560 370 L612 380 L664 345 L716 360 L768 330 L820 342 L872 318" fill="none" stroke="#2dd4bf" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M300 470 L352 462 L404 468 L456 450 L508 458 L560 440 L612 452 L664 432 L716 440 L768 425 L820 432 L872 418" fill="none" stroke="#3b82f6" stroke-width="2.5" stroke-dasharray="6 6" stroke-linejoin="round"/>
+  <circle cx="768" cy="330" r="6" fill="#0f1a2e" stroke="#2dd4bf" stroke-width="3"/>
+  <rect x="724" y="290" width="88" height="28" rx="7" fill="#e6edf7"/>
+  <text x="737" y="309" fill="#0a1120" font-size="12" font-weight="700">368 visits</text>
+  <g fill="#55657f" font-size="10">
+    <text x="292" y="522">Jan</text><text x="396" y="522">Mar</text><text x="500" y="522">May</text><text x="604" y="522">Jul</text><text x="708" y="522">Sep</text><text x="812" y="522">Nov</text>
+  </g>
+
+  <!-- Appointments list -->
+  <rect x="912" y="232" width="340" height="308" rx="14" fill="#0f1a2e" stroke="#1c2840"/>
+  <text x="936" y="268" fill="#e6edf7" font-size="16" font-weight="600">Today's Appointments</text>
+  <text x="1196" y="268" fill="#2dd4bf" font-size="12" font-weight="600">View all</text>
+  <g font-size="13">
+    <circle cx="952" cy="310" r="16" fill="#f59e0b" fill-opacity="0.2"/><text x="944" y="315" fill="#fbbf24" font-weight="700" font-size="12">AK</text>
+    <text x="978" y="306" fill="#e6edf7" font-weight="600">Ali Khan</text><text x="978" y="323" fill="#6b7b96" font-size="11">Cardiology · Dr. Hamza</text>
+    <rect x="1170" y="298" width="62" height="24" rx="12" fill="#2dd4bf" fill-opacity="0.12"/><text x="1181" y="315" fill="#2dd4bf" font-size="11" font-weight="600">09:30</text>
+
+    <circle cx="952" cy="366" r="16" fill="#3b82f6" fill-opacity="0.2"/><text x="944" y="371" fill="#60a5fa" font-weight="700" font-size="12">FN</text>
+    <text x="978" y="362" fill="#e6edf7" font-weight="600">Fatima Noor</text><text x="978" y="379" fill="#6b7b96" font-size="11">Pediatrics · Dr. Ayesha</text>
+    <rect x="1170" y="354" width="62" height="24" rx="12" fill="#2dd4bf" fill-opacity="0.12"/><text x="1181" y="371" fill="#2dd4bf" font-size="11" font-weight="600">10:15</text>
+
+    <circle cx="952" cy="422" r="16" fill="#a78bfa" fill-opacity="0.2"/><text x="943" y="427" fill="#c4b5fd" font-weight="700" font-size="12">UM</text>
+    <text x="978" y="418" fill="#e6edf7" font-weight="600">Usman Malik</text><text x="978" y="435" fill="#6b7b96" font-size="11">Orthopedics · Dr. Bilal</text>
+    <rect x="1170" y="410" width="62" height="24" rx="12" fill="#2dd4bf" fill-opacity="0.12"/><text x="1181" y="427" fill="#2dd4bf" font-size="11" font-weight="600">11:00</text>
+
+    <circle cx="952" cy="478" r="16" fill="#f43f5e" fill-opacity="0.2"/><text x="945" y="483" fill="#fb7185" font-weight="700" font-size="12">SR</text>
+    <text x="978" y="474" fill="#e6edf7" font-weight="600">Sana Riaz</text><text x="978" y="491" fill="#6b7b96" font-size="11">Neurology · Dr. Imran</text>
+    <rect x="1170" y="466" width="62" height="24" rx="12" fill="#1c2840"/><text x="1181" y="483" fill="#8494ad" font-size="11" font-weight="600">12:45</text>
+  </g>
+
+  <!-- Recent patients table -->
+  <rect x="256" y="560" width="996" height="222" rx="14" fill="#0f1a2e" stroke="#1c2840"/>
+  <text x="280" y="596" fill="#e6edf7" font-size="16" font-weight="600">Recent Patients</text>
+  <rect x="280" y="612" width="948" height="34" rx="8" fill="#111c31"/>
+  <g fill="#6b7b96" font-size="11" font-weight="600" letter-spacing="0.8">
+    <text x="296" y="634">PATIENT ID</text><text x="420" y="634">NAME</text><text x="610" y="634">ASSIGNED DOCTOR</text><text x="810" y="634">DEPARTMENT</text><text x="990" y="634">ADMITTED</text><text x="1120" y="634">STATUS</text>
+  </g>
+  <g font-size="13" fill="#c5d0e0">
+    <text x="296" y="678" fill="#8494ad" font-family="'JetBrains Mono', monospace" font-size="12">#PT-1042</text><text x="420" y="678" font-weight="600">Hassan Raza</text><text x="610" y="678">Dr. Hamza Ali</text><text x="810" y="678">Cardiology</text><text x="990" y="678">01 Oct 2026</text>
+    <rect x="1120" y="663" width="84" height="22" rx="11" fill="#22c55e" fill-opacity="0.14"/><text x="1134" y="678" fill="#4ade80" font-size="11" font-weight="600">Discharged</text>
+    <line x1="280" y1="696" x2="1228" y2="696" stroke="#1a2640"/>
+    <text x="296" y="724" fill="#8494ad" font-family="'JetBrains Mono', monospace" font-size="12">#PT-1043</text><text x="420" y="724" font-weight="600">Mariam Tariq</text><text x="610" y="724">Dr. Ayesha Khan</text><text x="810" y="724">Pediatrics</text><text x="990" y="724">02 Oct 2026</text>
+    <rect x="1120" y="709" width="84" height="22" rx="11" fill="#3b82f6" fill-opacity="0.16"/><text x="1137" y="724" fill="#60a5fa" font-size="11" font-weight="600">In Ward</text>
+    <line x1="280" y1="742" x2="1228" y2="742" stroke="#1a2640"/>
+    <text x="296" y="764" fill="#8494ad" font-family="'JetBrains Mono', monospace" font-size="12">#PT-1044</text><text x="420" y="764" font-weight="600">Zain Abbas</text><text x="610" y="764">Dr. Imran Shah</text><text x="810" y="764">Neurology</text><text x="990" y="764">02 Oct 2026</text>
+    <rect x="1120" y="749" width="84" height="22" rx="11" fill="#f59e0b" fill-opacity="0.16"/><text x="1136" y="764" fill="#fbbf24" font-size="11" font-weight="600">Critical</text>
+  </g>
+</svg>

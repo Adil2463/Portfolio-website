@@ -17,7 +17,7 @@ class StoreContactRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255'],
             'subject' => ['required', 'string', 'max:255'],
-            'message' => ['required', 'string', 'max:5000'],
+            'message' => ['nullable', 'string', 'max:5000'],
         ];
     }
 
@@ -28,7 +28,6 @@ class StoreContactRequest extends FormRequest
             'email.required' => 'Please enter your email address.',
             'email.email' => 'Please enter a valid email address.',
             'subject.required' => 'Please enter a subject.',
-            'message.required' => 'Please enter a message.',
             'message.max' => 'Message must not exceed 5000 characters.',
         ];
     }

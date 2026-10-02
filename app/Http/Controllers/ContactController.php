@@ -31,7 +31,7 @@ class ContactController extends Controller
                 name: $data['name'],
                 email: $data['email'],
                 subject: $data['subject'],
-                message: $data['message'],
+                message: $data['message'] ?? null,
             ));
         }
 

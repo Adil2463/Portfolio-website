@@ -18,7 +18,7 @@ class ContactFormMail extends Mailable implements ShouldQueue
         public readonly string $name,
         public readonly string $email,
         public readonly string $subject,
-        public readonly string $message,
+        public readonly ?string $message,
     ) {}
 
     public function envelope(): Envelope

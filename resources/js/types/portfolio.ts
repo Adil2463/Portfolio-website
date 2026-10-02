@@ -18,13 +18,13 @@ export type NavigationLink = {
 
 export type SkillItem = {
     name: string;
-    description?: string;
     isCore?: boolean;
 };
 
 export type SkillCategory = {
     category: string;
     icon: LucideIcon;
+    blurb?: string;
     skills: SkillItem[];
 };
 
@@ -43,8 +43,13 @@ export type ProjectLink = {
     url: string;
 };
 
+export type ProjectStatus = 'live' | 'demo' | 'in-progress';
+
 export type Project = {
+    slug: string;
     name: string;
+    category: string;
+    status?: ProjectStatus;
     overview: string;
     problem?: string;
     role?: string;
@@ -53,23 +58,14 @@ export type Project = {
     outcome?: string;
     links: ProjectLink[];
     image?: string;
-    featured?: boolean;
 };
 
 export type EducationEntry = {
     institution: string;
     qualification: string;
-    field?: string;
     startDate: string;
     endDate: string;
     description?: string;
-};
-
-export type Certification = {
-    name: string;
-    issuer: string;
-    date: string;
-    link?: string;
 };
 
 export type Service = {
@@ -78,11 +74,9 @@ export type Service = {
     icon: LucideIcon;
 };
 
-export type Highlight = {
+export type Stat = {
+    value: string;
     label: string;
-    value: string | number;
-    description?: string;
-    icon: LucideIcon;
 };
 
 export type PersonalInfo = {
@@ -90,8 +84,10 @@ export type PersonalInfo = {
     title: string;
     summary: string;
     location?: string;
+    timezone?: string;
     email: string;
     availability?: string;
+    photo?: string;
     socialLinks: SocialLink[];
 };
 
@@ -100,11 +96,4 @@ export type ContactFormData = {
     email: string;
     subject: string;
     message: string;
-};
-
-export type Testimonial = {
-    quote: string;
-    name: string;
-    role: string;
-    company: string;
 };

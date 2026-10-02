@@ -5,7 +5,8 @@ export function useActiveSection(
     sectionIds: string[],
     options?: { rootMargin?: string; threshold?: number },
 ): Ref<string> {
-    const activeSection = ref(sectionIds[0] ?? '');
+    // Empty until a tracked section is actually on screen (e.g. nothing while on the hero).
+    const activeSection = ref('');
     let observer: IntersectionObserver | null = null;
 
     onMounted(() => {
@@ -27,15 +28,8 @@ export function useActiveSection(
                     }
                 });
 
-                if (visibleSections.size > 0) {
-                    const firstVisible = sectionIds.find((id) =>
-                        visibleSections.has(id),
-                    );
-
-                    if (firstVisible) {
-                        activeSection.value = firstVisible;
-                    }
-                }
+                activeSection.value =
+                    sectionIds.find((id) => visibleSections.has(id)) ?? '';
             },
             {
                 rootMargin: options?.rootMargin ?? '-20% 0px -60% 0px',

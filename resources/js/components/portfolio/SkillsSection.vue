@@ -1,60 +1,79 @@
 <script setup lang="ts">
 import { motion } from 'motion-v';
 import { useReducedMotion } from '@/composables/useReducedMotion';
+import { skillCategories } from '@/data/portfolio';
+import { fadeUp, inView, stagger } from '@/lib/motion';
+import { trackSpotlight } from '@/lib/spotlight';
 
 const { prefersReducedMotion } = useReducedMotion();
-const cv = { hidden: {}, visible: { transition: { staggerChildren: 0.07 } } };
-const iv = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } } };
-const chipV = { hidden: { opacity: 0, scale: 0.9 }, visible: { opacity: 1, scale: 1, transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] } } };
-
-const skillGroups = [
-    { label: 'Backend',         skills: ['PHP', 'Laravel', 'RESTful APIs'] },
-    { label: 'Frontend',        skills: ['Vue.js', 'Nuxt.js', 'TypeScript', 'JavaScript', 'HTML', 'CSS', 'Tailwind CSS'] },
-    { label: 'Database',        skills: ['MySQL'] },
-    { label: 'Tools & Workflow',skills: ['Git', 'GitHub', 'PHPUnit', 'Vite', 'Composer', 'NPM'] },
-    { label: 'Practices',       skills: ['Responsive Design', 'REST Architecture', 'MVC Pattern', 'Clean Code', 'Agile'] },
-];
+const v = <T,>(variants: T) => (prefersReducedMotion.value ? undefined : variants);
 </script>
 
 <template>
-    <section id="skills" class="folio-section" :style="{ borderTop: '1px solid var(--folio-border)' }">
-        <div class="mx-auto max-w-6xl px-6 md:px-10 lg:px-12">
-            <motion.div :variants="prefersReducedMotion?undefined:cv" initial="hidden" while-in-view="visible" :viewport="{once:true,margin:'-80px'}">
-
-                <div class="grid gap-8 lg:grid-cols-2 lg:gap-16">
-                    <motion.div :variants="prefersReducedMotion?undefined:iv">
-                        <p class="folio-label">Skills</p>
-                        <h2 class="mt-3 text-[clamp(1.9rem,4vw,2.8rem)] font-extrabold leading-[1.1] tracking-[-0.03em]" :style="{ color: 'var(--folio-text-primary)' }">
-                            What I work<br /><em class="not-italic folio-green">with</em>
-                        </h2>
-                    </motion.div>
-                    <motion.p :variants="prefersReducedMotion?undefined:iv" class="self-end text-[0.9375rem] leading-[1.8] lg:pb-1" :style="{ color: 'var(--folio-text-secondary)' }">
-                        Technologies I use daily to build full-stack applications — from database design to polished interfaces.
+    <section id="skills" class="folio-section border-t border-line bg-paper-2">
+        <div class="folio-container grid gap-12 lg:grid-cols-12 lg:gap-10">
+            <!-- Sticky heading -->
+            <motion.div
+                :variants="v(stagger(0.1))"
+                initial="hidden"
+                while-in-view="visible"
+                :viewport="inView"
+                class="lg:col-span-5"
+            >
+                <div class="lg:sticky lg:top-32">
+                    <motion.p :variants="v(fadeUp)" class="folio-eyebrow">Skills &amp; stack</motion.p>
+                    <motion.h2 :variants="v(fadeUp)" class="folio-display mt-5 text-[clamp(2.2rem,4.4vw,3.6rem)] text-ink">
+                        The tools I <span class="folio-em">build</span> with
+                    </motion.h2>
+                    <motion.p :variants="v(fadeUp)" class="mt-6 max-w-md text-base leading-relaxed text-ink-soft">
+                        A focused, modern stack for shipping complete products. Highlighted items are the ones I reach for
+                        every day.
                     </motion.p>
                 </div>
-
-                <motion.div :variants="prefersReducedMotion?undefined:iv" class="mt-12 border-t" :style="{ borderColor: 'var(--folio-border)' }" />
-
-                <div class="mt-12 space-y-10">
-                    <motion.div v-for="group in skillGroups" :key="group.label" :variants="prefersReducedMotion?undefined:cv" class="grid gap-4 sm:grid-cols-[140px_1fr] sm:gap-8">
-                        <motion.p :variants="prefersReducedMotion?undefined:iv" class="pt-1 text-xs font-semibold uppercase tracking-[0.12em]" :style="{ color: 'var(--folio-text-faint)' }">
-                            {{ group.label }}
-                        </motion.p>
-                        <motion.div :variants="prefersReducedMotion?undefined:cv" class="flex flex-wrap gap-2">
-                            <motion.span v-for="skill in group.skills" :key="skill" :variants="prefersReducedMotion?undefined:chipV" class="folio-chip">{{ skill }}</motion.span>
-                        </motion.div>
-                    </motion.div>
-                </div>
-
-                <motion.div :variants="prefersReducedMotion?undefined:iv" class="mt-16 flex flex-col gap-3 border-t pt-8 sm:flex-row sm:items-center sm:justify-between" :style="{ borderColor: 'var(--folio-border)' }">
-                    <p class="text-sm" :style="{ color: 'var(--folio-text-muted)' }">
-                        Always learning — currently exploring
-                        <span :style="{ color: 'var(--folio-text-secondary)', fontWeight: 500 }">Inertia.js</span> &amp;
-                        <span :style="{ color: 'var(--folio-text-secondary)', fontWeight: 500 }">Docker</span>
-                    </p>
-                    <span class="font-mono text-xs" :style="{ color: 'var(--folio-text-faint)' }">v2026</span>
-                </motion.div>
             </motion.div>
+
+            <!-- Category cards -->
+            <motion.ul
+                :variants="v(stagger(0.08))"
+                initial="hidden"
+                while-in-view="visible"
+                :viewport="inView"
+                class="flex flex-col gap-4 lg:col-span-7"
+            >
+                <motion.li
+                    v-for="(group, i) in skillCategories"
+                    :key="group.category"
+                    :variants="v(fadeUp)"
+                    class="folio-card folio-spotlight group p-6 transition-colors duration-300 hover:border-line-strong md:p-8"
+                    @pointermove="trackSpotlight"
+                >
+                    <div class="flex items-start gap-5">
+                        <span
+                            class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-line bg-paper text-ink transition-colors duration-300 group-hover:border-brand group-hover:bg-brand group-hover:text-brand-ink"
+                        >
+                            <component :is="group.icon" class="h-5 w-5" />
+                        </span>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-baseline justify-between gap-4">
+                                <h3 class="font-display text-xl font-semibold tracking-tight text-ink">{{ group.category }}</h3>
+                                <span class="font-mono text-xs text-ink-muted">0{{ i + 1 }}</span>
+                            </div>
+                            <p v-if="group.blurb" class="mt-1 text-sm text-ink-muted">{{ group.blurb }}</p>
+                            <ul class="mt-5 flex flex-wrap gap-2">
+                                <li
+                                    v-for="skill in group.skills"
+                                    :key="skill.name"
+                                    class="folio-pill"
+                                    :class="skill.isCore ? 'border-ink/25 text-ink' : ''"
+                                >
+                                    <span v-if="skill.isCore" class="h-1.5 w-1.5 rounded-full bg-brand" />
+                                    {{ skill.name }}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </motion.li>
+            </motion.ul>
         </div>
     </section>
 </template>

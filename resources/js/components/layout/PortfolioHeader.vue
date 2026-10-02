@@ -1,94 +1,97 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue';
-import { Menu } from '@lucide/vue';
+import { onMounted, onUnmounted, ref } from 'vue';
+import { motion } from 'motion-v';
+import { ArrowUpRight, Menu } from '@lucide/vue';
 import MobileNavigation from '@/components/layout/MobileNavigation.vue';
 import ThemeToggle from '@/components/layout/ThemeToggle.vue';
-import { navigationLinks, personalInfo } from '@/data/portfolio';
 import { useActiveSection } from '@/composables/useActiveSection';
+import { navigationLinks } from '@/data/portfolio';
+import { easeOutExpo } from '@/lib/motion';
+import { scrollToSection } from '@/lib/scroll';
 
-const sectionIds = navigationLinks.map((link) => link.id);
-const activeSection = useActiveSection(sectionIds);
+const activeSection = useActiveSection(navigationLinks.map((link) => link.id));
 
+/* Hide the bar while scrolling down, bring it back on scroll up. */
+const hidden = ref(false);
 const scrolled = ref(false);
-function onScroll() { scrolled.value = window.scrollY > 40; }
-onMounted(() => window.addEventListener('scroll', onScroll, { passive: true }));
-onUnmounted(() => window.removeEventListener('scroll', onScroll));
+let lastY = 0;
 
-function scrollTo(href: string) {
-    document.getElementById(href.replace('#', ''))?.scrollIntoView({ behavior: 'smooth' });
+function onScroll() {
+    const y = window.scrollY;
+    scrolled.value = y > 24;
+    hidden.value = y > 400 && y > lastY;
+    lastY = y;
 }
 
-const firstName = personalInfo.name.split(' ')[0] ?? 'Adil';
-const lastName  = personalInfo.name.split(' ')[1] ?? '';
+onMounted(() => window.addEventListener('scroll', onScroll, { passive: true }));
+onUnmounted(() => window.removeEventListener('scroll', onScroll));
 </script>
 
 <template>
     <a
         href="#main-content"
-        class="fixed top-0 left-0 z-[100] -translate-y-full bg-[hsl(var(--folio-green))] px-4 py-2 text-sm font-semibold text-black focus:translate-y-0"
+        class="fixed top-0 left-0 z-100 -translate-y-full bg-brand px-4 py-2 text-sm font-semibold text-brand-ink focus:translate-y-0"
     >
         Skip to content
     </a>
 
     <header
-        class="fixed top-0 right-0 left-0 z-50 transition-all duration-500"
-        :style="scrolled
-            ? 'border-bottom: 1px solid var(--folio-nav-border); background: var(--folio-nav-bg); backdrop-filter: blur(20px);'
-            : 'border-bottom: 1px solid transparent; background: transparent;'"
+        class="fixed inset-x-0 top-0 z-50 px-3 pt-3 transition-transform duration-500 md:pt-5"
+        :class="hidden ? 'translate-y-[-120%]' : 'translate-y-0'"
     >
-        <nav
-            class="mx-auto flex h-[4.5rem] max-w-6xl items-center justify-between px-6 md:px-10 lg:px-12"
+        <motion.nav
+            :initial="{ y: -80, opacity: 0 }"
+            :animate="{ y: 0, opacity: 1 }"
+            :transition="{ duration: 0.8, ease: easeOutExpo, delay: 0.2 }"
+            class="mx-auto flex h-14 max-w-5xl items-center justify-between rounded-full border px-2 transition-[background-color,border-color,box-shadow] duration-500"
+            :class="scrolled
+                ? 'border-line bg-paper/75 shadow-[0_10px_40px_-20px_rgb(0_0_0/0.5)] backdrop-blur-xl'
+                : 'border-transparent bg-transparent'"
             aria-label="Main navigation"
         >
             <!-- Logo -->
             <button
-                class="flex items-center gap-0.5 text-base font-bold tracking-tight focus-visible:outline-none"
-                @click="scrollTo('#hero')"
+                class="group flex items-center gap-2.5 rounded-full py-1 pr-3 pl-1"
                 aria-label="Back to top"
+                @click="scrollToSection('top')"
             >
-                <span :style="{ color: 'var(--folio-text-primary)' }">{{ firstName }}</span>
-                <span class="folio-green"> {{ lastName }}</span>
-                <span class="ml-0.5 inline-block h-[5px] w-[5px] rounded-full bg-[hsl(var(--folio-green))]" />
+                <span
+                    class="flex h-10 w-10 items-center justify-center rounded-full bg-ink font-display text-sm font-bold text-paper transition-colors duration-300 group-hover:bg-brand group-hover:text-brand-ink"
+                >
+                    AA
+                </span>
+                <span class="hidden font-display text-[0.95rem] font-semibold tracking-tight text-ink sm:block">
+                    Adil Anwar
+                </span>
             </button>
 
-            <!-- Desktop nav links -->
-            <div class="hidden items-center gap-8 md:flex">
-                <button
-                    v-for="link in navigationLinks"
-                    :key="link.id"
-                    class="folio-nav-link"
-                    :class="{ active: activeSection === link.id }"
-                    @click="scrollTo(link.href)"
-                >
-                    {{ link.label }}
-                </button>
-            </div>
+            <!-- Desktop links -->
+            <ul class="hidden items-center gap-1 md:flex">
+                <li v-for="link in navigationLinks" :key="link.id">
+                    <button
+                        class="relative rounded-full px-4 py-2 text-sm font-medium transition-colors"
+                        :class="activeSection === link.id ? 'text-ink' : 'text-ink-muted hover:text-ink'"
+                        @click="scrollToSection(link.href)"
+                    >
+                        <span
+                            v-if="activeSection === link.id"
+                            class="absolute inset-0 -z-10 rounded-full bg-ink/[0.07]"
+                        />
+                        {{ link.label }}
+                    </button>
+                </li>
+            </ul>
 
-            <!-- Right side -->
-            <div class="flex items-center gap-3">
+            <!-- Right -->
+            <div class="flex items-center gap-1.5">
                 <ThemeToggle />
-
-                <button
-                    class="hidden items-center gap-2 rounded-full border px-4 py-1.5 text-xs font-medium transition-colors md:inline-flex"
-                    :style="{
-                        borderColor: 'hsl(var(--folio-green) / 0.35)',
-                        background:  'hsl(var(--folio-green) / 0.08)',
-                        color:       'hsl(var(--folio-green))',
-                    }"
-                    @click="scrollTo('#contact')"
-                >
-                    <span class="relative flex h-1.5 w-1.5">
-                        <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-[hsl(var(--folio-green))] opacity-60" />
-                        <span class="relative inline-flex h-1.5 w-1.5 rounded-full bg-[hsl(var(--folio-green))]" />
-                    </span>
-                    Open to projects
+                <button class="folio-btn folio-btn-solid hidden py-2.5! text-[0.82rem]! md:inline-flex" @click="scrollToSection('contact')">
+                    Let's talk <ArrowUpRight class="folio-btn-icon h-3.5 w-3.5" />
                 </button>
-
-                <MobileNavigation>
+                <MobileNavigation :active-section="activeSection">
                     <template #trigger>
                         <button
-                            class="flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg border transition-colors md:hidden"
-                            :style="{ borderColor: 'var(--folio-border)', color: 'var(--folio-text-muted)' }"
+                            class="flex h-10 w-10 items-center justify-center rounded-full bg-ink text-paper md:hidden"
                             aria-label="Open menu"
                         >
                             <Menu class="h-4 w-4" />
@@ -96,6 +99,6 @@ const lastName  = personalInfo.name.split(' ')[1] ?? '';
                     </template>
                 </MobileNavigation>
             </div>
-        </nav>
+        </motion.nav>
     </header>
 </template>

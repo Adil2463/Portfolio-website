@@ -1,83 +1,114 @@
 <script setup lang="ts">
+import { ArrowUp, ArrowUpRight } from '@lucide/vue';
+import BrandIcon from '@/components/portfolio/BrandIcon.vue';
+import { useLocalTime } from '@/composables/useLocalTime';
 import { navigationLinks, personalInfo } from '@/data/portfolio';
+import { scrollToSection } from '@/lib/scroll';
 
-function scrollTo(href: string) {
-    document.getElementById(href.replace('#', ''))?.scrollIntoView({ behavior: 'smooth' });
-}
-function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
-
-const currentYear = new Date().getFullYear();
-const linkedinUrl = personalInfo.socialLinks.find(l => l.platform === 'linkedin')?.url ?? '#';
-const githubUrl   = personalInfo.socialLinks.find(l => l.platform === 'github')?.url ?? '#';
+const localTime = useLocalTime(personalInfo.timezone);
+const year = new Date().getFullYear();
 </script>
 
 <template>
-    <footer :style="{ borderTop: '1px solid var(--folio-border)', background: 'var(--folio-bg)' }">
-        <div class="mx-auto max-w-6xl px-6 py-10 md:px-10 lg:px-12">
+    <footer class="bg-paper px-2 pb-2 sm:px-3 sm:pb-3">
+        <div class="relative overflow-hidden rounded-[1.75rem] bg-footer text-footer-ink sm:rounded-[2.5rem]">
+            <!-- Brand glow -->
+            <div
+                class="pointer-events-none absolute -top-32 left-1/2 h-64 w-[36rem] max-w-full -translate-x-1/2 rounded-full opacity-25 blur-[100px]"
+                style="background: var(--folio-brand)"
+                aria-hidden="true"
+            />
 
-            <!-- Top row -->
-            <div class="flex flex-col items-center gap-6 md:flex-row md:justify-between">
+            <div class="folio-container relative pt-14 md:pt-20">
+                <div class="grid gap-12 lg:grid-cols-12 lg:gap-8">
+                    <!-- Identity -->
+                    <div class="lg:col-span-6">
+                        <div class="flex items-center gap-3">
+                            <span class="flex h-11 w-11 items-center justify-center rounded-full bg-footer-ink font-display text-sm font-bold text-footer">
+                                AA
+                            </span>
+                            <span class="font-display text-lg font-semibold tracking-tight">{{ personalInfo.name }}</span>
+                        </div>
+                        <p class="mt-5 max-w-sm text-[0.95rem] leading-relaxed text-footer-ink/65">
+                            {{ personalInfo.title }} building thoughtful, fast web products with Laravel &amp; Vue.js.
+                        </p>
+                        <button
+                            class="mt-6 inline-flex items-center gap-2 rounded-full border border-footer-line px-4 py-2 text-sm font-medium transition-colors hover:border-brand hover:bg-brand hover:text-brand-ink"
+                            @click="scrollToSection('contact')"
+                        >
+                            <span class="relative flex h-2 w-2">
+                                <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-70" />
+                                <span class="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+                            </span>
+                            {{ personalInfo.availability }}
+                            <ArrowUpRight class="h-3.5 w-3.5" />
+                        </button>
+                    </div>
 
-                <!-- Logo -->
-                <button class="text-base font-bold tracking-tight transition-opacity hover:opacity-70" @click="scrollToTop">
-                    <span :style="{ color: 'var(--folio-text-primary)' }">{{ personalInfo.name.split(' ')[0] }}</span>
-                    <span class="folio-green"> {{ personalInfo.name.split(' ')[1] }}</span>
-                    <span class="ml-0.5 inline-block h-[5px] w-[5px] rounded-full bg-[hsl(var(--folio-green))]" />
-                </button>
+                    <!-- Sitemap -->
+                    <nav aria-label="Footer navigation" class="lg:col-span-3">
+                        <p class="font-mono text-xs tracking-widest text-footer-ink/45 uppercase">Sitemap</p>
+                        <ul class="mt-5 grid grid-cols-2 gap-x-6 gap-y-3 sm:grid-cols-3 lg:grid-cols-1">
+                            <li v-for="link in navigationLinks" :key="link.id">
+                                <button
+                                    class="folio-link text-[0.95rem] text-footer-ink/75 transition-colors hover:text-footer-ink"
+                                    @click="scrollToSection(link.href)"
+                                >
+                                    {{ link.label }}
+                                </button>
+                            </li>
+                        </ul>
+                    </nav>
 
-                <!-- Nav links -->
-                <nav aria-label="Footer navigation" class="flex flex-wrap justify-center gap-x-6 gap-y-2">
-                    <button v-for="link in navigationLinks" :key="link.id"
-                        class="text-xs transition-colors hover:opacity-80"
-                        :style="{ color: 'var(--folio-text-muted)' }"
-                        @click="scrollTo(link.href)">
-                        {{ link.label }}
-                    </button>
-                </nav>
-
-                <!-- Social icons -->
-                <div class="flex items-center gap-3">
-                    <a :href="linkedinUrl" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"
-                        class="flex h-8 w-8 items-center justify-center rounded-full border transition-all"
-                        :style="{ borderColor: 'var(--folio-border)', color: 'var(--folio-text-muted)' }"
-                        @mouseover="($el as HTMLElement).style.borderColor = 'hsl(var(--folio-green) / 0.4)'; ($el as HTMLElement).style.color = 'hsl(var(--folio-green))'"
-                        @mouseleave="($el as HTMLElement).style.borderColor = 'var(--folio-border)'; ($el as HTMLElement).style.color = 'var(--folio-text-muted)'">
-                        <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                        </svg>
-                    </a>
-                    <a :href="githubUrl" target="_blank" rel="noopener noreferrer" aria-label="GitHub"
-                        class="flex h-8 w-8 items-center justify-center rounded-full border transition-all"
-                        :style="{ borderColor: 'var(--folio-border)', color: 'var(--folio-text-muted)' }"
-                        @mouseover="($el as HTMLElement).style.borderColor = 'hsl(var(--folio-green) / 0.4)'; ($el as HTMLElement).style.color = 'hsl(var(--folio-green))'"
-                        @mouseleave="($el as HTMLElement).style.borderColor = 'var(--folio-border)'; ($el as HTMLElement).style.color = 'var(--folio-text-muted)'">
-                        <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                            <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
-                        </svg>
-                    </a>
+                    <!-- Elsewhere -->
+                    <div class="lg:col-span-3">
+                        <p class="font-mono text-xs tracking-widest text-footer-ink/45 uppercase">Elsewhere</p>
+                        <ul class="mt-5 flex gap-2">
+                            <li v-for="s in personalInfo.socialLinks" :key="s.platform">
+                                <a
+                                    :href="s.url"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    :aria-label="s.label"
+                                    class="flex h-11 w-11 items-center justify-center rounded-full border border-footer-line text-footer-ink/80 transition-colors hover:border-footer-ink hover:bg-footer-ink hover:text-footer"
+                                >
+                                    <BrandIcon :platform="s.platform" class="h-4 w-4" />
+                                </a>
+                            </li>
+                        </ul>
+                        <p class="mt-8 font-mono text-xs tracking-widest text-footer-ink/45 uppercase">Local time</p>
+                        <p class="mt-2 text-[0.95rem] text-footer-ink/75">
+                            <span class="font-mono text-footer-ink">{{ localTime || '--:--' }}</span> · Pakistan (PKT)
+                        </p>
+                    </div>
                 </div>
             </div>
 
-            <!-- Copyright — centred -->
-            <div class="mt-8 border-t pt-6 text-center" :style="{ borderColor: 'var(--folio-border)' }">
-                <p class="text-xs" :style="{ color: 'var(--folio-text-faint)' }">
-                    &copy; {{ currentYear }} {{ personalInfo.name }}. All rights reserved.
+            <!-- Giant wordmark -->
+            <div class="relative mt-14 overflow-hidden px-2 select-none md:mt-20" aria-hidden="true">
+                <p
+                    class="folio-display bg-linear-to-b from-footer-ink/90 to-footer-ink/5 bg-clip-text text-center text-[17vw] leading-[0.78] whitespace-nowrap text-transparent xl:text-[13.5rem]"
+                >
+                    Adil Anwar
                 </p>
             </div>
-        </div>
 
-        <!-- Back to top -->
-        <button
-            class="fixed right-6 bottom-6 z-40 flex h-9 w-9 items-center justify-center rounded-full border shadow-md backdrop-blur-sm transition-all"
-            :style="{ borderColor: 'var(--folio-border)', background: 'var(--folio-bg-card)', color: 'var(--folio-text-muted)' }"
-            aria-label="Back to top"
-            @click="scrollToTop"
-            @mouseover="($el as HTMLElement).style.borderColor = 'hsl(var(--folio-green) / 0.4)'; ($el as HTMLElement).style.color = 'hsl(var(--folio-green))'"
-            @mouseleave="($el as HTMLElement).style.borderColor = 'var(--folio-border)'; ($el as HTMLElement).style.color = 'var(--folio-text-muted)'"
-        >
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="m18 15-6-6-6 6" />
-            </svg>
-        </button>
+            <div class="folio-container relative flex flex-col-reverse items-center justify-between gap-4 border-t border-footer-line py-6 sm:flex-row">
+                <p class="text-center text-xs text-footer-ink/50 sm:text-left">
+                    &copy; {{ year }} {{ personalInfo.name }}. Designed &amp; built by me.
+                </p>
+                <button
+                    class="group inline-flex items-center gap-2 text-xs font-medium text-footer-ink/70 hover:text-footer-ink"
+                    @click="scrollToSection('top')"
+                >
+                    Back to top
+                    <span
+                        class="flex h-9 w-9 items-center justify-center rounded-full border border-footer-line transition-colors group-hover:border-brand group-hover:bg-brand group-hover:text-brand-ink"
+                    >
+                        <ArrowUp class="h-3.5 w-3.5" />
+                    </span>
+                </button>
+            </div>
+        </div>
     </footer>
 </template>
