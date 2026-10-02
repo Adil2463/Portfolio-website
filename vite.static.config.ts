@@ -1,4 +1,4 @@
-import { cpSync, existsSync } from 'node:fs';
+import { cpSync, readdirSync } from 'node:fs';
 import { resolve } from 'node:path';
 import tailwindcss from '@tailwindcss/vite';
 import vue from '@vitejs/plugin-vue';
@@ -13,19 +13,20 @@ import type { Plugin } from 'vite';
 const base = process.env.STATIC_BASE ?? '/Portfolio-website/';
 const outDir = resolve(__dirname, 'dist-static');
 
-/** Copy only the public files the portfolio uses (not index.php, build/, etc.). */
-const publicFiles = ['Image.jpg', 'images', 'favicon.ico', 'favicon.svg', 'apple-touch-icon.png', 'robots.txt'];
+/**
+ * Everything in /public is copied (images, favicons…) except Laravel-only
+ * entries, so newly added images are picked up automatically.
+ */
+const laravelOnly = new Set(['index.php', '.htaccess', 'build', 'hot', 'storage', 'fonts-manifest.dev.json']);
 
 function copyPublicAssets(): Plugin {
     return {
         name: 'copy-portfolio-public-assets',
         apply: 'build',
         closeBundle() {
-            for (const file of publicFiles) {
-                const from = resolve(__dirname, 'public', file);
-
-                if (existsSync(from)) {
-                    cpSync(from, resolve(outDir, file), { recursive: true });
+            for (const file of readdirSync(resolve(__dirname, 'public'))) {
+                if (!laravelOnly.has(file)) {
+                    cpSync(resolve(__dirname, 'public', file), resolve(outDir, file), { recursive: true });
                 }
             }
         },
