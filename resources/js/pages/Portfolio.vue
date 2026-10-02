@@ -1,14 +1,7 @@
 <script setup lang="ts">
 import { Head } from '@inertiajs/vue3';
 import { onMounted, onUnmounted } from 'vue';
-import HeroSection from '@/components/portfolio/HeroSection.vue';
-import AboutSection from '@/components/portfolio/AboutSection.vue';
-import SkillsSection from '@/components/portfolio/SkillsSection.vue';
-import ExperienceSection from '@/components/portfolio/ExperienceSection.vue';
-import ProjectsSection from '@/components/portfolio/ProjectsSection.vue';
-import EducationSection from '@/components/portfolio/EducationSection.vue';
-import TestimonialsSection from '@/components/portfolio/TestimonialsSection.vue';
-import ContactSection from '@/components/portfolio/ContactSection.vue';
+import PortfolioSections from '@/components/portfolio/PortfolioSections.vue';
 import { pageMetadata, personalInfo } from '@/data/portfolio';
 
 let scriptElement: HTMLScriptElement | null = null;
@@ -47,12 +40,5 @@ onUnmounted(() => {
         <meta name="twitter:description" :content="pageMetadata.description" />
     </Head>
 
-    <HeroSection />
-    <AboutSection />
-    <SkillsSection />
-    <ExperienceSection />
-    <ProjectsSection />
-    <EducationSection />
-    <TestimonialsSection />
-    <ContactSection />
+    <PortfolioSections />
 </template>

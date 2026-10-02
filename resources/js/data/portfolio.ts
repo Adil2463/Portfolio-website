@@ -1,41 +1,41 @@
 import {
     Code2,
     Database,
+    GitBranch,
     Globe,
     Layers,
+    LayoutTemplate,
     Server,
-    Smartphone,
-    TestTube,
+    Sparkles,
     Wrench,
-    Briefcase,
-    Zap,
-    GitBranch,
 } from '@lucide/vue';
 import type {
-    Certification,
     EducationEntry,
-    Highlight,
+    ExperienceEntry,
     NavigationLink,
     PersonalInfo,
     Project,
     Service,
     SkillCategory,
     SocialLink,
-    Testimonial,
+    Stat,
 } from '@/types/portfolio';
+import { asset } from '@/lib/asset';
 
 export const personalInfo: PersonalInfo = {
     name: 'Adil Anwar',
     title: 'Full Stack Developer',
     summary:
-        'Results-driven Full Stack Developer with experience building scalable, high-performance web applications using PHP (Laravel), Vue.js, JavaScript, and MySQL. Skilled in developing responsive user interfaces, designing RESTful APIs, optimizing databases, and integrating third-party services.',
+        'Full Stack Developer building scalable, high-performance web applications with Laravel, Vue.js, TypeScript and MySQL — from clean REST APIs and solid database design to fast, responsive interfaces.',
     location: 'HaroonAbad, Pakistan',
+    timezone: 'Asia/Karachi',
     email: 'adilanwar0318@gmail.com',
     availability: 'Open to opportunities',
+    photo: asset('/portfolio.png'),
     socialLinks: [
         {
             platform: 'github',
-            url: 'https://github.com/adil-anwar',
+            url: 'https://github.com/Adil2463',
             label: 'GitHub',
             icon: GitBranch,
         },
@@ -49,93 +49,94 @@ export const personalInfo: PersonalInfo = {
 };
 
 export const navigationLinks: NavigationLink[] = [
-    { label: 'About',      href: '#about',        id: 'about' },
-    { label: 'Skills',     href: '#skills',       id: 'skills' },
-    { label: 'Experience', href: '#experience',   id: 'experience' },
-    { label: 'Projects',   href: '#projects',     id: 'projects' },
-    { label: 'Education',  href: '#education',    id: 'education' },
-    { label: 'Reviews',    href: '#reviews',      id: 'reviews' },
-    { label: 'Contact',    href: '#contact',      id: 'contact' },
+    { label: 'About', href: '#about', id: 'about' },
+    { label: 'Skills', href: '#skills', id: 'skills' },
+    { label: 'Work', href: '#projects', id: 'projects' },
+    { label: 'Journey', href: '#journey', id: 'journey' },
+    { label: 'Contact', href: '#contact', id: 'contact' },
 ];
 
-export const highlights: Highlight[] = [
-    {
-        label: 'Experience',
-        value: '1+',
-        description: 'years of professional development',
-        icon: Briefcase,
-    },
-    {
-        label: 'Projects Delivered',
-        value: '5+',
-        description: 'projects shipped to production',
-        icon: Layers,
-    },
-    {
-        label: 'Technologies',
-        value: '10+',
-        description: 'technologies and frameworks',
-        icon: Code2,
-    },
-    {
-        label: 'Full-Stack Coverage',
-        value: 'Frontend to Backend',
-        description: 'end-to-end product development',
-        icon: Zap,
-    },
+/** Headline numbers — keep these honest; they're the first thing recruiters check. */
+export const stats: Stat[] = [
+    { value: '1+', label: 'Year of professional experience' },
+    { value: '2', label: 'Featured full-stack projects' },
+    { value: '10+', label: 'Technologies in daily use' },
+];
+
+/** Shown in the scrolling marquee under the hero. */
+export const techStack = [
+    'Laravel',
+    'Vue.js',
+    'TypeScript',
+    'PHP',
+    'Nuxt.js',
+    'MySQL',
+    'Tailwind CSS',
+    'Inertia.js',
+    'REST APIs',
+    'JavaScript',
+    'Git',
+    'PHPUnit',
 ];
 
 export const skillCategories: SkillCategory[] = [
     {
-        category: 'Frontend',
-        icon: Globe,
-        skills: [
-            { name: 'Vue.js', isCore: true },
-            { name: 'Nuxt.js', isCore: true },
-            { name: 'TypeScript', isCore: true },
-            { name: 'JavaScript' },
-            { name: 'HTML' },
-            { name: 'CSS' },
-            { name: 'Tailwind CSS' },
-        ],
-    },
-    {
         category: 'Backend',
         icon: Server,
+        blurb: 'APIs, business logic and auth that hold up in production.',
         skills: [
             { name: 'PHP', isCore: true },
             { name: 'Laravel', isCore: true },
-            { name: 'RESTful APIs' },
+            { name: 'RESTful APIs', isCore: true },
+            { name: 'MVC Architecture' },
+            { name: 'Authentication & RBAC' },
         ],
     },
     {
-        category: 'Databases',
+        category: 'Frontend',
+        icon: LayoutTemplate,
+        blurb: 'Responsive, accessible interfaces that feel fast.',
+        skills: [
+            { name: 'Vue.js', isCore: true },
+            { name: 'TypeScript', isCore: true },
+            { name: 'Nuxt.js' },
+            { name: 'JavaScript' },
+            { name: 'Tailwind CSS' },
+            { name: 'HTML & CSS' },
+        ],
+    },
+    {
+        category: 'Database',
         icon: Database,
+        blurb: 'Schemas and queries designed to scale.',
         skills: [
             { name: 'MySQL', isCore: true },
+            { name: 'Query Optimisation' },
+            { name: 'Schema Design' },
+            { name: 'Eloquent ORM' },
         ],
     },
     {
-        category: 'DevOps & Tools',
+        category: 'Tools & Workflow',
         icon: Wrench,
+        blurb: 'The everyday toolkit for shipping reliably.',
         skills: [
-            { name: 'Git' },
-            { name: 'GitHub' },
+            { name: 'Git & GitHub', isCore: true },
+            { name: 'PHPUnit' },
+            { name: 'Vite' },
+            { name: 'Composer' },
+            { name: 'NPM' },
         ],
     },
     {
-        category: 'Testing',
-        icon: TestTube,
-        skills: [{ name: 'PHPUnit' }],
-    },
-    {
-        category: 'Mobile',
-        icon: Smartphone,
-        skills: [{ name: 'Responsive Design' }],
+        category: 'Currently Learning',
+        icon: Sparkles,
+        blurb: 'Always levelling up.',
+        skills: [{ name: 'Inertia.js' }, { name: 'Docker' }],
     },
 ];
 
-export const experiences = [
+export const experiences: ExperienceEntry[] = [
     {
         company: 'NbtHub',
         role: 'Full Stack Developer',
@@ -154,7 +155,10 @@ export const experiences = [
 
 export const projects: Project[] = [
     {
+        slug: 'hospital-management-system',
         name: 'Hospital Management System',
+        category: 'Healthcare',
+        image: asset('/images/projects/hospital-management.svg'),
         overview:
             'A comprehensive Hospital Management System to streamline patient registration, appointment scheduling, doctor management, and medical record tracking.',
         problem:
@@ -171,53 +175,51 @@ export const projects: Project[] = [
         outcome:
             'Delivered a fully functional system with secure, role-based access control that digitized hospital workflows end-to-end.',
         links: [],
-        featured: true,
     },
     {
-        name: 'Expense Tracker',
+        slug: 'food-ordering-website',
+        name: 'Food Ordering Website',
+        category: 'Food & Delivery',
+        status: 'demo',
+        image: asset('/images/projects/food-website.svg'),
         overview:
-            'A full-stack Expense Tracker application to help users monitor income and expenses with interactive financial reports.',
+            'A modern food ordering website where customers browse restaurant menus, filter dishes by category, add items to a cart and place orders through a smooth, mobile-first checkout flow.',
         problem:
-            'Users lacked a simple, secure way to track daily spending, categorize expenses, and visualize their financial health over time.',
+            'Small restaurants needed a simple online storefront so customers could explore the menu and order without phone calls or third-party apps taking a large commission.',
         role: 'Full Stack Developer',
-        technologies: ['Laravel', 'Vue.js', 'MySQL', 'Tailwind CSS'],
+        technologies: ['Laravel', 'Vue.js', 'Tailwind CSS', 'MySQL'],
         features: [
-            'Expense categorization and tagging',
-            'Transaction history with filtering',
-            'Budget tracking and limits',
-            'Interactive financial reports and charts',
-            'Secure user authentication',
+            'Menu browsing with category filters and search',
+            'Cart with live quantity and price updates',
+            'Streamlined checkout and order summary',
+            'Admin panel to manage dishes, prices and offers',
+            'Fully responsive, mobile-first layout',
         ],
         outcome:
-            'Built a fully functional financial management tool with clear data visualization helping users make better spending decisions.',
+            'Built as a demo project showcasing a complete ordering flow — from discovering dishes to checkout — with a clean, appetising UI.',
         links: [],
-        featured: true,
     },
 ];
 
 export const services: Service[] = [
     {
-        title: 'Full-Stack Web Development',
-        description:
-            'End-to-end web application development using modern frameworks and best practices.',
+        title: 'Full-stack web apps',
+        description: 'End-to-end products — database, API and interface — built with Laravel and Vue.',
         icon: Layers,
     },
     {
-        title: 'API Design & Integration',
-        description:
-            'RESTful API architecture, third-party integrations, and backend system design.',
+        title: 'API design & integration',
+        description: 'Clean RESTful APIs and reliable third-party integrations.',
         icon: Server,
     },
     {
-        title: 'Frontend Engineering',
-        description:
-            'Responsive, accessible, and performant user interfaces with modern JavaScript frameworks.',
+        title: 'Frontend engineering',
+        description: 'Responsive, accessible interfaces with Vue.js, TypeScript and Tailwind.',
         icon: Code2,
     },
     {
-        title: 'Database Architecture',
-        description:
-            'Database design, optimization, and migration strategies for scalable applications.',
+        title: 'Database architecture',
+        description: 'MySQL schemas and queries designed for speed and growth.',
         icon: Database,
     },
 ];
@@ -225,50 +227,22 @@ export const services: Service[] = [
 export const education: EducationEntry[] = [
     {
         institution: 'The Islamia University of Bahawalpur',
-        qualification: 'Bachelor of Science',
-        field: 'Computer Science',
-        startDate: 'March 2022',
-        endDate: 'February 2026',
-        description: 'Studied core computer science subjects including data structures, algorithms, software engineering, databases, and web development.',
+        qualification: 'BS Computer Science',
+        startDate: '2022',
+        endDate: '2026',
+        description:
+            'Data structures, algorithms, software engineering, databases and web development.',
     },
     {
         institution: 'Govt Rizvia Post Graduate College',
-        qualification: 'FSc',
-        field: 'Pre-Engineering',
+        qualification: 'FSc Pre-Engineering',
         startDate: '2019',
         endDate: '2021',
-        description: 'Completed pre-engineering studies with focus on mathematics and physics.',
+        description: 'Pre-engineering studies with a focus on mathematics and physics.',
     },
 ];
-
-export const testimonials: Testimonial[] = [
-    {
-        quote: "Adil delivered a clean, well-structured Laravel + Vue application on time. His code is readable, his APIs are solid, and he communicates clearly throughout. Would work with him again without hesitation.",
-        name: 'Ahmed Raza',
-        role: 'Product Manager',
-        company: 'NbtHub',
-    },
-    {
-        quote: "We needed a full-stack developer who could handle both the backend logic and a polished frontend — Adil did exactly that. The Hospital Management System he built exceeded our expectations.",
-        name: 'Sara Malik',
-        role: 'Operations Lead',
-        company: 'Healthcare Client',
-    },
-    {
-        quote: "Adil built our Expense Tracker from scratch. The code is clean, the UI is responsive, and the features work exactly as requested. Fast turnaround and zero hand-holding required.",
-        name: 'Usman Khan',
-        role: 'Startup Founder',
-        company: 'FinApp',
-    },
-];
-
-export const contactInfo = {
-    email: personalInfo.email,
-    location: personalInfo.location,
-    availability: personalInfo.availability,
-};
 
 export const pageMetadata = {
-    title: `${personalInfo.name} - ${personalInfo.title}`,
+    title: `${personalInfo.name} — ${personalInfo.title}`,
     description: personalInfo.summary,
 };

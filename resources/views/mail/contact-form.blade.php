@@ -28,7 +28,7 @@
 
         <hr style="border: none; border-top: 1px solid #e5e5e5; margin: 16px 0;">
 
-        <div style="font-size: 14px; color: #1a1a1a; line-height: 1.6; white-space: pre-wrap;">{{ $message }}</div>
+        <div style="font-size: 14px; color: #1a1a1a; line-height: 1.6; white-space: pre-wrap;">{{ $message ?: '(no message)' }}</div>
 
         <hr style="border: none; border-top: 1px solid #e5e5e5; margin: 16px 0;">
 
