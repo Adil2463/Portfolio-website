@@ -142,7 +142,7 @@ export const experiences: ExperienceEntry[] = [
         role: 'Full Stack Developer',
         startDate: '2026',
         endDate: null,
-        location: 'Remote',
+        location: 'HaroonAbad, Pakistan',
         description: [
             'Building scalable, high-performance web applications using PHP (Laravel) and Vue.js.',
             'Designing and developing RESTful APIs and integrating third-party services.',
