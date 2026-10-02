@@ -31,7 +31,7 @@ export const personalInfo: PersonalInfo = {
     timezone: 'Asia/Karachi',
     email: 'adilanwar0318@gmail.com',
     availability: 'Open to opportunities',
-    photo: asset('/Image.jpg'),
+    photo: asset('/portfolio.png'),
     socialLinks: [
         {
             platform: 'github',
